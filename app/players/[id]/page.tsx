@@ -118,8 +118,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
     const p1Path = path.join(process.cwd(), 'public', 'data', `${baseName}_1.csv`);
     const p1PathAlt = path.join(process.cwd(), 'public', 'data', `${baseName}.csv`); // 代替パス
 
-    let finalRecord = null;
-    let r1Record = null;
+    let finalRecord: any = null;
+    let r1Record: any = null;
     let isTwoDay = false;
 
     try {
@@ -201,7 +201,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
             const allPlayersWithTotal = d2
               .filter((r: any) => r.rank !== 'PAR' && !['DNS', 'NR', 'DQ'].includes(r.rank))
               .map((r2: any) => {
-                const r1 = d1.find((r: any) =>
+                const r1: any = d1.find((r: any) =>
                   getMatchKey(r.name || "") === getMatchKey(r2.name || "")
                 );
 
@@ -233,11 +233,11 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
 
               // 前の選手と同じスコアかチェック
               if (playerIndex > 0 &&
-                allPlayersWithTotal[playerIndex].total === allPlayersWithTotal[playerIndex - 1].total) {
+                (allPlayersWithTotal[playerIndex] as any).total === (allPlayersWithTotal[playerIndex - 1] as any).total) {
                 // 前の選手の順位を探す
                 let sameScoreStartIndex = playerIndex - 1;
                 while (sameScoreStartIndex > 0 &&
-                  allPlayersWithTotal[sameScoreStartIndex].total === allPlayersWithTotal[sameScoreStartIndex - 1].total) {
+                  (allPlayersWithTotal[sameScoreStartIndex] as any).total === (allPlayersWithTotal[sameScoreStartIndex - 1] as any).total) {
                   sameScoreStartIndex--;
                 }
                 finalRank = sameScoreStartIndex + 1;

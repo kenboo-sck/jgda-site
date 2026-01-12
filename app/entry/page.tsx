@@ -37,7 +37,7 @@ export default async function EntryListPage() {
       };
       return !(Array.isArray(t.status) ? t.status.some(checkMatch) : checkMatch(t.status));
     })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const getStatusLabel = (t: any) => {
     const checkResults = (s: any) => (s?.id || s || "").toString().toLowerCase() === 'results';
