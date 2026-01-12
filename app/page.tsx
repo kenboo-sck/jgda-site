@@ -29,14 +29,14 @@ export default async function Home() {
     return checkMatch(status);
   });
 
-  let players = [];
+  let players: any[] = [];
   const targetFileName = tournament?.csv_name || 'arima.csv';
 
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', targetFileName);
     if (fs.existsSync(filePath)) {
-      const data = getCsvData(targetFileName);
-      const is2Day = data.length > 0 && ('1r' in data[0] || '1R' in data[0]);
+      const data: any[] = getCsvData(targetFileName);
+      const is2Day = data.length > 0 && ('1r' in (data[0] as any) || '1R' in (data[0] as any));
 
       players = data
         .filter((r: any) => r.rank !== 'PAR' && r.name)
