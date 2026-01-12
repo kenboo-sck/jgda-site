@@ -2,7 +2,7 @@ import { client } from '@/lib/client';
 import Link from 'next/link';
 
 // キャッシュの設定（必要に応じて調整してください）
-export const revalidate = 0; 
+export const revalidate = 0;
 
 export default async function ResultsListPage({ searchParams }: any) {
   const sp = await searchParams;
@@ -17,7 +17,7 @@ export default async function ResultsListPage({ searchParams }: any) {
         endpoint: 'tournament',
         queries: { limit, offset, orders: '-date' }
       }).catch(() => ({ contents: [] }));
-      
+
       if (!res.contents || res.contents.length === 0) break;
       all = [...all, ...res.contents];
       if (res.contents.length < limit) break;
@@ -31,7 +31,7 @@ export default async function ResultsListPage({ searchParams }: any) {
   // プログラム側でステータスを判定（APIフィルタの不一致を防ぐ）
   const allTournaments = allData.filter((t: any) => {
     if (!t.status) return false;
-    
+
     // セレクト項目の「ID」または「値」の両方をチェックして判定を確実に
     const checkMatch = (s: any) => {
       const id = (s?.id || "").toString().toLowerCase();
@@ -40,7 +40,7 @@ export default async function ResultsListPage({ searchParams }: any) {
     };
 
     if (Array.isArray(t.status)) {
-      return t.status.some(s => checkMatch(s));
+      return t.status.some((s: any) => checkMatch(s));
     }
     return checkMatch(t.status);
   });
@@ -55,8 +55,8 @@ export default async function ResultsListPage({ searchParams }: any) {
   const selectedYear = sp.year || 'all';
 
   // 4. フィルタリングと並び替え
-  let filtered = (selectedYear && selectedYear !== 'all') 
-    ? allTournaments.filter((t: any) => t.date?.includes(selectedYear)) 
+  let filtered = (selectedYear && selectedYear !== 'all')
+    ? allTournaments.filter((t: any) => t.date?.includes(selectedYear))
     : allTournaments;
 
   // 日付文字列から数値を取得して正確にソート
@@ -72,7 +72,7 @@ export default async function ResultsListPage({ searchParams }: any) {
 
   return (
     <main className="bg-white min-h-screen pb-20 font-sans text-slate-900">
-      
+
       <div className="bg-[#001f3f] text-white py-16 px-4 border-b-4 border-red-600">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-black italic tracking-tighter uppercase leading-none">
@@ -82,16 +82,15 @@ export default async function ResultsListPage({ searchParams }: any) {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12">
-        
+
         {/* 年度切り替えナビゲーション */}
         <div className="flex flex-wrap gap-3 mb-12 border-b border-slate-200 pb-8">
           <Link
             href="/results?year=all"
-            className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${
-              selectedYear === 'all'
-              ? 'bg-[#001f3f] text-white shadow-lg transform -translate-y-1' 
-              : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
-            }`}
+            className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${selectedYear === 'all'
+                ? 'bg-[#001f3f] text-white shadow-lg transform -translate-y-1'
+                : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
+              }`}
           >
             ALL
           </Link>
@@ -99,11 +98,10 @@ export default async function ResultsListPage({ searchParams }: any) {
             <Link
               key={year}
               href={`/results?year=${year}`}
-              className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${
-                selectedYear === year 
-                ? 'bg-red-600 text-white shadow-lg transform -translate-y-1' 
-                : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
-              }`}
+              className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${selectedYear === year
+                  ? 'bg-red-600 text-white shadow-lg transform -translate-y-1'
+                  : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
+                }`}
             >
               {year}
             </Link>
@@ -114,8 +112,8 @@ export default async function ResultsListPage({ searchParams }: any) {
         <div className="grid grid-cols-1 gap-6">
           {filtered.length > 0 ? (
             filtered.map((t: any) => (
-              <Link 
-                href={`/results/${t.tournament_id}`} 
+              <Link
+                href={`/results/${t.tournament_id}`}
                 key={t.id}
                 className="group block bg-white border border-slate-200 hover:border-[#001f3f] transition-all shadow-sm hover:shadow-xl p-6 md:p-8 relative overflow-hidden"
               >
@@ -129,8 +127,8 @@ export default async function ResultsListPage({ searchParams }: any) {
                     </h2>
                     <div className="flex flex-wrap items-center gap-4 mt-3">
                       <div className="flex items-center gap-2 text-slate-500 font-bold text-xs">
-                      <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                      {t.venue}
+                        <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        {t.venue}
                       </div>
                       {t.related_video && t.related_video.length > 0 && (
                         <div className="flex items-center gap-1 text-red-600 font-black text-[9px] uppercase tracking-widest italic bg-red-50 px-2 py-0.5 rounded-sm border border-red-100">
