@@ -1,0 +1,4 @@
+"コンテンツID
+※空欄で構いません。特定の値を設定したい場合に入力してください。",name,nameKana,is_amateur,image,birthDate,birthPlace,height,almaMater,affiliation,bio,related_video
+,テキスト1,テキスト1,true,https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,2026-01-01T07:40:37.492Z,テキスト1,テキスト1,テキスト1,テキスト1,"<p>複数行のテキストを入力<br />こんにちは</p>","参照先id1,参照先id2"
+,テキスト2,テキスト2,false,https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,2026-01-01T07:40:37.492Z,テキスト2,テキスト2,テキスト2,テキスト2,"<p>複数行のテキストを入力<br />こんばんは</p>","参照先id1,参照先id2,参照先id3"

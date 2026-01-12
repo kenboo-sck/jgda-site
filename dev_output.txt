@@ -1,0 +1,115 @@
+﻿
+> jgda-site@0.1.0 dev
+> next dev
+
+笆ｲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.9:3000
+
+笨・Starting...
+笨・Ready in 1616ms
+笳・Compiling / ...
+Sponsor Data from CMS: [
+  {
+    id: 'uulglhgb951n',
+    createdAt: '2026-01-05T08:04:03.573Z',
+    updatedAt: '2026-01-05T08:30:32.214Z',
+    publishedAt: '2026-01-05T08:04:03.573Z',
+    revisedAt: '2026-01-05T08:28:43.774Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://www.pc-daiwabo.co.jp/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/635b0fc252684c4bbb33581bfb889687/official_partner-1.webp',
+      height: 200,
+      width: 500
+    },
+    category: [ 'sponsor' ]
+  },
+  {
+    id: 'p-71joiij',
+    createdAt: '2026-01-05T08:30:08.785Z',
+    updatedAt: '2026-01-05T08:30:08.785Z',
+    publishedAt: '2026-01-05T08:30:08.785Z',
+    revisedAt: '2026-01-05T08:30:08.785Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://www.tachihi.co.jp/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/90bb2a203db94b3e883333975fcf44e6/official_partner-2.webp',
+      height: 200,
+      width: 500
+    },
+    category: [ 'sponsor' ]
+  },
+  {
+    id: '1quqoanwod54',
+    createdAt: '2026-01-05T08:36:45.105Z',
+    updatedAt: '2026-01-05T08:37:06.834Z',
+    publishedAt: '2026-01-05T08:36:45.105Z',
+    revisedAt: '2026-01-05T08:36:45.105Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://www.daiei-re.jp/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/d40be5bab3534f6daf331cbffa26a14c/official_partner-3.webp',
+      height: 200,
+      width: 500
+    },
+    category: [ 'sponsor' ]
+  },
+  {
+    id: 'duqnuoibmoi',
+    createdAt: '2026-01-05T08:37:47.290Z',
+    updatedAt: '2026-01-05T08:38:27.833Z',
+    publishedAt: '2026-01-05T08:37:47.290Z',
+    revisedAt: '2026-01-05T08:37:47.290Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://l-tike.com/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/f990a15fb8124d8d97424a173db12083/official_partner-4.webp',
+      height: 200,
+      width: 500
+    },
+    category: [ 'sponsor' ]
+  },
+  {
+    id: 'z00ikg-h3y',
+    createdAt: '2026-01-05T08:38:17.672Z',
+    updatedAt: '2026-01-05T08:38:31.698Z',
+    publishedAt: '2026-01-05T08:38:17.672Z',
+    revisedAt: '2026-01-05T08:38:17.672Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://www.kentaku.co.jp/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/96f2dcaec91b46bdb3a6f687d315caf0/official_partner-6.webp',
+      height: 200,
+      width: 501
+    },
+    category: [ 'sponsor' ]
+  },
+  {
+    id: 'e8z_yyr2t00j',
+    createdAt: '2026-01-05T08:39:09.267Z',
+    updatedAt: '2026-01-05T08:39:14.514Z',
+    publishedAt: '2026-01-05T08:39:09.267Z',
+    revisedAt: '2026-01-05T08:39:09.267Z',
+    type: [ 'photo' ],
+    title: '繧ｪ繝輔ぅ繧ｷ繝｣繝ｫ繧ｹ繝昴Φ繧ｵ繝ｼ',
+    url: 'https://www.bunka-s.co.jp/',
+    images: [],
+    main_image: {
+      url: 'https://images.microcms-assets.io/assets/b501e0ec33d1495884bd3bf75b6630ea/fd349108ce7e43738bd701fddb914c97/bunka-s_bn.webp',
+      height: 200,
+      width: 500
+    },
+    category: [ 'sponsor' ]
+  }
+]
