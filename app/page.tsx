@@ -125,84 +125,77 @@ export default async function Home() {
     }));
 
   return (
-    <main className="bg-[#ffffff] min-h-screen font-sans text-[#333] pb-32">
+    <main className="bg-white min-h-screen font-sans text-[#333] pb-32">
 
       {/* 1. スライダーエリア */}
       <TopSlider data={sliderRes.contents} />
 
-      <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-
-        {/* 2. メインタイトル */}
-        <section className="mb-10 border-b border-slate-200 pb-6 flex items-baseline justify-between">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-black italic tracking-tighter text-[#001f3f] leading-none mb-2 uppercase">
-              MATCH NEWS <span className="text-red-600">FLASH</span>
-            </h2>
-            <p className="text-slate-400 text-[10px] md:text-xs tracking-[0.3em] font-medium uppercase">Official Tournament Report</p>
+      {/* 2 & 3. 大会コンテンツ & リーダーボード */}
+      <section className="bg-white py-24">
+        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
+          <div className="mb-10 border-b border-slate-200 pb-6 flex items-baseline justify-between">
+            <div>
+              <h2 className="text-2xl md:text-4xl font-black italic tracking-tighter text-[#001f3f] leading-none mb-2 uppercase">
+                MATCH NEWS <span className="text-red-600">FLASH</span>
+              </h2>
+              <p className="text-slate-400 text-[10px] md:text-xs tracking-[0.3em] font-medium uppercase">Official Tournament Report</p>
+            </div>
           </div>
-        </section>
 
-        {/* 3. 大会コンテンツセクション（アイコン導入・文字サイズ統一） */}
-        <section className="mb-16 shadow-2xl overflow-hidden rounded-sm border border-[#001f3f]">
+          <div className="mb-16 shadow-2xl overflow-hidden rounded-sm border border-[#001f3f]">
+            <header className="bg-[#001f3f] py-6 px-8 border-b border-white/5 flex items-center gap-4">
+              <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+              <h3 className="text-lg md:text-xl font-bold text-white tracking-tight italic uppercase">
+                {tournament?.title || (tournament ? "Tournament Result" : "No Tournament Data")}
+              </h3>
+            </header>
 
-          <header className="bg-[#001f3f] py-6 px-8 border-b border-white/5 flex items-center gap-4">
-            <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-            <h3 className="text-lg md:text-xl font-bold text-white tracking-tight italic uppercase">
-              {tournament?.title || (tournament ? "Tournament Result" : "No Tournament Data")}
-            </h3>
-          </header>
+            {tournament?.image?.url && (
+              <div className="w-full aspect-[16/9] md:h-[550px] overflow-hidden bg-slate-900 border-b border-[#001f3f]">
+                <img src={tournament.image.url} className="w-full h-full object-cover" alt="Tournament Visual" />
+              </div>
+            )}
 
-          {tournament?.image?.url && (
-            <div className="w-full aspect-[16/9] md:h-[550px] overflow-hidden bg-slate-900 border-b border-[#001f3f]">
-              <img src={tournament.image.url} className="w-full h-full object-cover" alt="Tournament Visual" />
-            </div>
-          )}
-
-          {/* 大会詳細：文字サイズを統一し、SVGアイコンを追加 */}
-          <div className="bg-[#001f3f] py-10 px-8 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
-            {/* Date */}
-            <div className="md:border-r border-white/10 px-6 flex items-start gap-4">
-              <div className="mt-1 text-red-500">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <div className="bg-[#001f3f] py-10 px-8 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+              <div className="md:border-r border-white/10 px-6 flex items-start gap-4">
+                <div className="mt-1 text-red-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Date</p>
+                  <p className="text-base font-medium text-white tracking-wide">
+                    {tournament?.date
+                      ? (tournament.date.includes('T') ? new Date(tournament.date).toLocaleDateString('ja-JP').replace(/\//g, '.') : tournament.date)
+                      : "---"}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Date</p>
-                <p className="text-base font-medium text-white tracking-wide">
-                  {tournament?.date
-                    ? (tournament.date.includes('T') ? new Date(tournament.date).toLocaleDateString('ja-JP').replace(/\//g, '.') : tournament.date)
-                    : "---"}
-                </p>
+              <div className="md:border-r border-white/10 px-6 flex items-start gap-4">
+                <div className="mt-1 text-red-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Venue</p>
+                  <p className="text-base font-medium text-white tracking-wide">{tournament?.venue || "---"}</p>
+                </div>
               </div>
-            </div>
-            {/* Venue */}
-            <div className="md:border-r border-white/10 px-6 flex items-start gap-4">
-              <div className="mt-1 text-red-500">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Venue</p>
-                <p className="text-base font-medium text-white tracking-wide">{tournament?.venue || "---"}</p>
-              </div>
-            </div>
-            {/* Winner */}
-            <div className="px-6 flex items-start gap-4">
-              <div className="mt-1 text-red-500">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Winner</p>
-                <p className="text-base font-bold text-white tracking-wide italic underline underline-offset-4 decoration-red-600 decoration-2">
-                  {players.length > 0 ? players[0].name : "---"}
-                </p>
+              <div className="px-6 flex items-start gap-4">
+                <div className="mt-1 text-red-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2 italic">Winner</p>
+                  <p className="text-base font-bold text-white tracking-wide italic underline underline-offset-4 decoration-red-600 decoration-2">
+                    {players.length > 0 ? players[0].name : "---"}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* 4. リーダーボード */}
-        <section className="mb-24">
+          {/* 4. リーダーボード */}
           <div className="border-t-4 border-[#001f3f]">
             <div className="bg-[#f8f9fa] py-4 px-6 border-x border-slate-400 border-b-2 border-slate-400 flex justify-between items-center text-[#001f3f]">
               <div className="flex items-center gap-2">
@@ -250,11 +243,13 @@ export default async function Home() {
               </div>
             )}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* 5. ニュース */}
-        <section className="mb-24">
-          <div className="mb-16 flex items-end justify-between border-b-2 border-slate-100 pb-8">
+      {/* 5. ニュース */}
+      <section className="bg-[#f8f9fa] py-24 border-y border-slate-100">
+        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
+          <div className="mb-16 flex items-end justify-between border-b-2 border-slate-200 pb-8">
             <div>
               <h2 className="text-2xl md:text-4xl font-black italic tracking-tighter uppercase leading-none text-[#001f3f]">
                 Latest <span className="text-red-600">News</span>
@@ -268,7 +263,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {newsRes.contents.map((news: any) => (
               <Link href={`/news/${news.id}`} key={news.id} className="group block">
-                <div className="aspect-[3/2] bg-slate-50 mb-6 overflow-hidden border border-slate-200 group-hover:border-[#001f3f] transition-all relative">
+                <div className="aspect-[3/2] bg-white mb-6 overflow-hidden border border-slate-200 group-hover:border-[#001f3f] transition-all relative">
                   {news.image?.url && (
                     <img src={news.image.url} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   )}
@@ -282,7 +277,7 @@ export default async function Home() {
               </Link>
             ))}
           </div>
-          <div className="flex justify-end mt-10">
+          <div className="flex justify-end mt-12">
             <Link
               href="/news"
               className="group inline-flex items-center gap-2 text-[11px] font-black tracking-[0.2em] uppercase text-[#001f3f] hover:text-red-600 transition-colors"
@@ -290,18 +285,25 @@ export default async function Home() {
               View All News <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* 6. スポンサーセクション */}
-        <Sponsors data={sponsorsData} />
+      {/* 6. スポンサーセクション (内部でbg-whiteを設定) */}
+      <Sponsors data={sponsorsData} />
 
-        {/* 7. 新着動画セクション */}
-        <LatestVideos data={latestVideosData} />
+      {/* 7. YouTubeコンテンツ */}
+      <section className="bg-[#f8f9fa] py-24 border-y border-slate-100">
+        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
+          <LatestVideos data={latestVideosData} />
+        </div>
+      </section>
 
-        {/* 8. Instagramセクション */}
-        <InstagramFeed data={[]} />
-
-      </div>
+      {/* 8. Instagramセクション */}
+      <section className="bg-white py-24">
+        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
+          <InstagramFeed data={[]} />
+        </div>
+      </section>
     </main>
   );
 }
