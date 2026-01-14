@@ -260,7 +260,7 @@ export default async function Home() {
                 Latest <span className="text-red-600">News</span>
               </h2>
               <p className="mt-4 text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] italic">
-                Official Announcements and Reports
+                最新ニュース
               </p>
             </div>
             <div className="hidden md:block w-24 h-1 bg-red-600"></div>
