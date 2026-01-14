@@ -31,6 +31,32 @@ export default async function Home() {
     return checkMatch(status);
   });
 
+  // 💡 選手データを全件取得してマッピング
+  const fetchAllPlayers = async () => {
+    let allContents: any[] = [];
+    let offset = 0;
+    const limit = 100;
+    while (true) {
+      const res = await client.get({
+        endpoint: 'players',
+        queries: { limit: limit, offset: offset, fields: 'id,name' }
+      });
+      allContents = [...allContents, ...res.contents];
+      if (res.contents.length < limit) break;
+      offset += limit;
+    }
+    return allContents;
+  };
+
+  const playersContents = await fetchAllPlayers().catch(() => []);
+  const playerInfoMap: Record<string, string> = {};
+  playersContents.forEach((p: any) => {
+    if (p.name) {
+      const key = p.name.normalize('NFKC').replace(/[@＠]/g, '').replace(/[\s　\.\u00a0\t\r\n]+/g, "").toLowerCase().trim();
+      playerInfoMap[key] = p.id;
+    }
+  });
+
   let players: any[] = [];
   const targetFileName = tournament?.csv_name || 'arima.csv';
 
@@ -50,9 +76,14 @@ export default async function Home() {
             if (s > 0) scoreVal = `+${s}`;
             else if (s === 0) scoreVal = 'E';
           }
+          const name = r.name || 'Unknown';
+          const matchKey = name.normalize('NFKC').replace(/[@＠]/g, '').replace(/[\s　\.\u00a0\t\r\n]+/g, "").toLowerCase().trim();
+          const pid = playerInfoMap[matchKey];
+
           return {
             rank: r.rank || '-',
-            name: r.name || 'Unknown',
+            name: name,
+            pid: pid,
             out: is2Day ? (r['1r'] || r['1R'] || '-') : (r.out || '-'),
             in: is2Day ? (r.total || r.TOTAL || r.Total || '-') : (r.in || '-'),
             score: scoreVal,
@@ -220,7 +251,13 @@ export default async function Home() {
                     <tr key={i} className="hover:bg-slate-50 transition-colors group">
                       <td className="py-5 text-center font-mono text-slate-500 font-bold text-sm border-r border-slate-300">{p.rank}</td>
                       <td className="py-5 px-6 text-[14px] md:text-[16px] font-bold text-[#001f3f] whitespace-nowrap tracking-tight italic">
-                        {p.name}
+                        {p.pid ? (
+                          <Link href={`/players/${p.pid}`} className="hover:text-red-600 hover:underline transition-all">
+                            {p.name}
+                          </Link>
+                        ) : (
+                          p.name
+                        )}
                       </td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.out}</td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.in}</td>
