@@ -253,10 +253,17 @@ export default async function Home() {
         </section>
 
         {/* 5. ニュース */}
-        <section>
-          <div className="flex items-center gap-4 mb-10">
-            <h2 className="text-[11px] font-black tracking-[0.4em] text-[#001f3f] uppercase italic">Latest News</h2>
-            <div className="flex-1 h-[2px] bg-slate-100"></div>
+        <section className="mb-24">
+          <div className="mb-16 flex items-end justify-between border-b-2 border-slate-100 pb-8">
+            <div>
+              <h2 className="text-2xl md:text-4xl font-black italic tracking-tighter uppercase leading-none text-[#001f3f]">
+                Latest <span className="text-red-600">News</span>
+              </h2>
+              <p className="mt-4 text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] italic">
+                Official Announcements and Reports
+              </p>
+            </div>
+            <div className="hidden md:block w-24 h-1 bg-red-600"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {newsRes.contents.map((news: any) => (
