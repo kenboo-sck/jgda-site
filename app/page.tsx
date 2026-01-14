@@ -241,8 +241,8 @@ export default async function Home() {
                   <tr className="text-[#333] text-[10px] font-bold tracking-[0.1em] uppercase border-b border-slate-400 bg-slate-50">
                     <th className="py-4 px-4 w-14 text-center border-r border-slate-300">Pos</th>
                     <th className="py-4 px-6 text-left">Player Name</th>
-                    <th className="py-4 px-2 w-16 text-center border-l border-slate-300">{players[0]?.is2Day ? '1R' : 'Out'}</th>
-                    <th className="py-4 px-2 w-16 text-center border-l border-slate-300">{players[0]?.is2Day ? '2R' : 'In'}</th>
+                    <th className="py-4 px-2 w-24 min-w-[96px] text-center border-l border-slate-300">{players[0]?.is2Day ? '1R' : 'Out'}</th>
+                    <th className="py-4 px-2 w-24 min-w-[96px] text-center border-l border-slate-300">{players[0]?.is2Day ? '2R' : 'In'}</th>
                     <th className="py-4 px-6 w-24 md:w-44 text-center bg-slate-100 text-[#001f3f] font-black border-l border-slate-400 text-[11px]">{players[0]?.is2Day ? 'Total' : 'Total Score'}</th>
                   </tr>
                 </thead>
