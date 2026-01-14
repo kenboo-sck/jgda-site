@@ -2,6 +2,7 @@ import { client } from '@/lib/client';
 import { getCsvData } from '@/lib/csvParser';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 
@@ -350,15 +351,18 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
       {/* --- コンテンツエリア --- */}
       <div className="max-w-5xl mx-auto px-4 -mt-8 relative z-10">
         <div className="bg-white shadow-2xl border border-slate-200 p-6 md:p-12 flex flex-col md:flex-row gap-12">
-
           {/* 左カラム：画像 */}
           <div className="w-full md:w-1/3 flex-shrink-0">
             <div className="aspect-[3/4] bg-slate-100 relative overflow-hidden border border-slate-200 shadow-inner">
               {player.image?.url ? (
-                <img
+                <Image
                   src={player.image.url}
                   alt={player.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority
+                  quality={90}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic bg-slate-50">NO IMAGE</div>
