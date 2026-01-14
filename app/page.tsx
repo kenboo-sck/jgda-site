@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import TopSlider from './TopSlider';
 import Sponsors from '@/components/Sponsors';
+import LatestVideos from '@/components/LatestVideos';
+import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 
 export const dynamic = 'force-dynamic';
@@ -91,6 +93,36 @@ export default async function Home() {
     logo: v.main_image || v.image || v.thumbnail, // main_imageを優先的に取得
     url: v.url // 動画URLをリンク先に
   }));
+
+  // 新着動画の取得 ( sponsorsを除外 )
+  const allVideosRes = await client.get({
+    endpoint: 'videos',
+    queries: { limit: 20, orders: '-date' }
+  }).catch(() => ({ contents: [] }));
+
+  const latestVideosData = allVideosRes.contents
+    .filter((v: any) => {
+      if (!v.url) return false;
+      // categoryにsponsorが含まれるものは除外
+      const cat = typeof v.category === 'string' ? v.category : (Array.isArray(v.category) ? v.category[0] : "");
+      if (cat?.includes('sponsor')) return false;
+
+      // typeがphotoのものは除外 (app/videos/page.tsxのロジックを参考)
+      const t = v.type;
+      if (!t) return true;
+      const target = Array.isArray(t) ? t[0] : t;
+      const id = typeof target === 'string' ? target : target?.id;
+      const val = typeof target === 'string' ? target : target?.value;
+      return id !== '9pX1xNYa6K' && val !== 'photo';
+    })
+    .slice(0, 6)
+    .map((v: any) => ({
+      id: v.id,
+      title: v.title,
+      url: v.url,
+      image: v.main_image || v.image || v.thumbnail,
+      date: v.date
+    }));
 
   return (
     <main className="bg-[#ffffff] min-h-screen font-sans text-[#333] pb-32">
@@ -255,6 +287,12 @@ export default async function Home() {
 
         {/* 6. スポンサーセクション */}
         <Sponsors data={sponsorsData} />
+
+        {/* 7. 新着動画セクション */}
+        <LatestVideos data={latestVideosData} />
+
+        {/* 8. Instagramセクション */}
+        <InstagramFeed data={[]} />
 
       </div>
     </main>
