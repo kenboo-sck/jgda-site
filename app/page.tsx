@@ -252,8 +252,11 @@ export default async function Home() {
                       <td className="py-5 text-center font-mono text-slate-500 font-bold text-sm border-r border-slate-300">{p.rank}</td>
                       <td className="py-5 px-6 text-[14px] md:text-[16px] font-bold text-[#001f3f] whitespace-nowrap tracking-tight italic">
                         {p.pid ? (
-                          <Link href={`/players/${p.pid}`} className="hover:text-red-600 hover:underline transition-all">
-                            {p.name}
+                          <Link href={`/players/${p.pid}`} className="group/item inline-flex items-center gap-2 hover:text-red-600 transition-all">
+                            <span>{p.name}</span>
+                            <span className="text-[9px] bg-slate-100 group-hover/item:bg-red-600 group-hover/item:text-white text-slate-400 px-1.5 py-0.5 rounded-[2px] font-black tracking-widest uppercase not-italic transition-all">
+                              Profile
+                            </span>
                           </Link>
                         ) : (
                           p.name
