@@ -355,14 +355,11 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
           <div className="w-full md:w-1/3 flex-shrink-0">
             <div className="aspect-[3/4] bg-slate-100 relative overflow-hidden border border-slate-200 shadow-inner">
               {player.image?.url ? (
-                <Image
-                  src={player.image.url}
+                <img
+                  src={`${player.image.url}?q=100&auto=format`}
                   alt={player.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  priority
-                  quality={90}
+                  className="w-full h-full object-cover"
+                  style={{ imageRendering: '-webkit-optimize-contrast' as any }}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic bg-slate-50">NO IMAGE</div>
