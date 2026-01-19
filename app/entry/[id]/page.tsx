@@ -64,12 +64,14 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
         <symbol id="icon-spectate" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></symbol>
         <symbol id="icon-rules" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></symbol>
         <symbol id="icon-guidance" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></symbol>
+        <symbol id="icon-date" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></symbol>
+        <symbol id="icon-entry" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" /></symbol>
       </svg>
 
       {/* ヒーローエリア */}
-      <div className="relative h-[40vh] md:h-[60vh] bg-slate-900 overflow-hidden">
+      <div className="relative h-[40vh] md:h-[60vh] min-h-[300px] md:min-h-[450px] bg-slate-900 overflow-hidden">
         {tournament.image?.url && (
-          <img src={tournament.image.url} alt="" className="w-full h-full object-cover opacity-60" />
+          <img src={tournament.image.url} alt="" className="w-full h-full object-cover object-[center_25%] opacity-60" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#001f3f] to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
@@ -147,6 +149,24 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
             )}
           </section>
 
+          {/* Entry Period Section */}
+          {tournament.entry_period && !isResults && (
+            <section className="relative group mb-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-date" /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Entry Period</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">エントリー期間</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+              <div className="rich-text-content pl-4 md:pl-16"
+                dangerouslySetInnerHTML={{ __html: tournament.entry_period }} />
+            </section>
+          )}
+
           {/* 各種セクション（リッチエディタ群） */}
           {tournament.entry_fee && !isResults && (
             <section className="relative group">
@@ -162,27 +182,40 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
               </div>
               <div className="rich-text-content pl-4 md:pl-16"
                 dangerouslySetInnerHTML={{ __html: tournament.entry_fee }} />
-
-              {/* ローソンチケット・QRコードセクション */}
-              {isEntry && (
-                <div className="mt-10">
-                  <LawsonTicketSection
-                    qrUrl={tournament.entry_qr?.url}
-                    entryUrl={tournament.entry_url || "#"}
-                  />
-                </div>
-              )}
             </section>
           )}
 
+          {/* Entry Application Section */}
           {isEntry && (
-            <div className="text-sm text-slate-600 leading-relaxed mx-auto max-w-max">
-              <p>締め切り前に定員一杯となった場合、キャンセル待ち希望の選手は、事務局へ直接連絡をいただきますようお願いいたします。</p>
-              <p>
-                竹内メールアドレス <a href="mailto:takeuchi@jgda.or.jp" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">takeuchi@jgda.or.jp</a> もしくは <a href="https://line.me/ti/p/YOUR_LINE_ID" target="_blank" rel="noopener noreferrer" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">竹内LINE</a> までお願いいたします。
-              </p>
-            </div>
+            <section className="relative group">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-entry" /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Entry Application</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">エントリー申込</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+
+              <div className="pl-4 md:pl-16 space-y-10">
+                <LawsonTicketSection
+                  qrUrl={tournament.entry_qr?.url}
+                  entryUrl={tournament.entry_url || "#"}
+                />
+
+                <div className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+                  <p>締め切り前に定員一杯となった場合、キャンセル待ち希望の選手は、事務局へ直接連絡をいただきますようお願いいたします。</p>
+                  <p className="mt-2">
+                    竹内メールアドレス <a href="mailto:takeuchi@jgda.or.jp" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">takeuchi@jgda.or.jp</a> もしくは <a href="https://line.me/ti/p/YOUR_LINE_ID" target="_blank" rel="noopener noreferrer" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">竹内LINE</a> までお願いいたします。
+                  </p>
+                </div>
+              </div>
+            </section>
           )}
+
+
 
           {/* 残りのセクション */}
           {[
@@ -238,11 +271,32 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
                 <span className="flex-1 h-[1px] bg-slate-200"></span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10">
-                {tournament.sponsors.map((s: any, i: number) => (
-                  <div key={i} className="aspect-[3/2] flex items-center justify-center p-6 md:p-10 bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all group/sponsor">
-                    {s.logo?.url && <img src={s.logo.url} alt="" className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover/sponsor:scale-110" />}
-                  </div>
-                ))}
+                {tournament.sponsors.map((s: any, i: number) => {
+                  const content = (
+                    <div className="w-full h-full flex items-center justify-center p-2 transition-all group/sponsor">
+                      {s.logo?.url && (
+                        <img
+                          src={s.logo.url}
+                          alt=""
+                          className="max-w-[95%] max-h-[90%] object-contain transition-transform duration-500 group-hover/sponsor:scale-105"
+                        />
+                      )}
+                    </div>
+                  );
+
+                  return (
+                    <div key={i} className="aspect-[3/2] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                      {/* Try common field IDs for the URL: url, link, link_url */}
+                      {(s.url || s.link || s.link_url) ? (
+                        <a href={s.url || s.link || s.link_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                          {content}
+                        </a>
+                      ) : (
+                        content
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </section>
           )}

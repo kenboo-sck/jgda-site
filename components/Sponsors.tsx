@@ -39,12 +39,12 @@ export default function Sponsors({ data }: { data: Sponsor[] }) {
             >
               {/* Background Accent */}
               <div className="absolute top-0 left-0 w-1 h-0 bg-red-600 transition-all duration-500 group-hover:h-full"></div>
-              
+
               {sponsor.logo?.url ? (
                 <img
                   src={sponsor.logo.url}
                   alt={sponsor.name}
-                  className="max-w-[80%] max-h-[70%] object-contain transition-all duration-500 group-hover:grayscale group-hover:opacity-50"
+                  className="max-w-[90%] max-h-[85%] object-contain transition-all duration-500 group-hover:scale-105"
                 />
               ) : (
                 <span className="text-slate-300 font-bold italic text-sm">{sponsor.name}</span>

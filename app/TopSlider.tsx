@@ -6,6 +6,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Link from 'next/link';
 
 interface SliderItem {
   id: string;
@@ -15,6 +16,7 @@ interface SliderItem {
     url: string;
   };
   link?: string;
+  url?: string;
 }
 
 export default function TopSlider({ data }: { data: SliderItem[] }) {
@@ -55,9 +57,10 @@ export default function TopSlider({ data }: { data: SliderItem[] }) {
         }}
         className="top-swiper"
       >
-        {slides.map((item, index) => (
-          <SwiperSlide key={`${item.id}-${index}`}>
-            <div className="flex flex-col group pb-6">
+        {slides.map((item, index) => {
+          const targetUrl = item.link || item.url;
+          const slideContent = (
+            <div className={`flex flex-col group pb-6 ${targetUrl ? 'cursor-pointer' : ''}`}>
               {/* 画像エリア */}
               <div className="relative aspect-[16/9] md:aspect-[16/9] overflow-hidden bg-slate-100 shadow-lg">
                 {item.image?.url ? (
@@ -70,7 +73,7 @@ export default function TopSlider({ data }: { data: SliderItem[] }) {
                   <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic">NO IMAGE</div>
                 )}
               </div>
-              
+
               {/* テキストエリア */}
               <div className="mt-6 px-4 md:px-12 text-center md:text-left">
                 <h3 className="text-xl md:text-4xl font-black italic uppercase text-white tracking-tighter leading-tight group-hover:text-red-600 transition-colors">
@@ -81,8 +84,20 @@ export default function TopSlider({ data }: { data: SliderItem[] }) {
                 </p>
               </div>
             </div>
-          </SwiperSlide>
-        ))}
+          );
+
+          return (
+            <SwiperSlide key={`${item.id}-${index}`}>
+              {targetUrl ? (
+                <Link href={targetUrl}>
+                  {slideContent}
+                </Link>
+              ) : (
+                slideContent
+              )}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       {/* カスタムページネーション：ドットの数を元のデータ数（3つ）に固定 */}
@@ -91,9 +106,8 @@ export default function TopSlider({ data }: { data: SliderItem[] }) {
           <button
             key={i}
             onClick={() => swiper?.slideToLoop(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === activeIndex ? 'bg-[#dc2626] w-8' : 'bg-white/30 w-2'
-            }`}
+            className={`h-2 rounded-full transition-all duration-300 ${i === activeIndex ? 'bg-[#dc2626] w-8' : 'bg-white/30 w-2'
+              }`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
