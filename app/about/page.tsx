@@ -108,6 +108,25 @@ export default async function AboutPage() {
           </div>
         </section>
 
+        {/* YouTube Video Section */}
+        <section className="mb-40">
+          <div className="max-w-4xl mx-auto">
+            <div className="relative aspect-video rounded-sm overflow-hidden shadow-2xl border border-slate-100">
+              <iframe
+                src="https://www.youtube.com/embed/KYWSxNa18cU"
+                title="JGDA YouTube Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
+            </div>
+            <div className="mt-4 flex items-center gap-3">
+              <div className="w-8 h-[2px] bg-red-600"></div>
+              <p className="text-[10px] font-black italic text-slate-400 uppercase tracking-widest">Featured Video</p>
+            </div>
+          </div>
+        </section>
+
         {/* プロテスト合格者セクション */}
         <section className="mb-40">
           <div className="flex flex-col items-center text-center mb-16">

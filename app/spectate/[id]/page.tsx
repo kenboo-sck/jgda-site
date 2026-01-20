@@ -43,9 +43,9 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
     return (
         <main className="bg-white min-h-screen pb-20 font-sans text-slate-900 border-t border-slate-100">
             {/* ヒーローエリア */}
-            <div className="relative h-[40vh] md:h-[50vh] bg-[#001f3f] overflow-hidden">
+            <div className="relative h-[40vh] md:h-[50vh] min-h-[300px] md:min-h-[400px] bg-[#001f3f] overflow-hidden">
                 {tournament.image?.url && (
-                    <img src={tournament.image.url} alt="" className="w-full h-full object-cover opacity-50" />
+                    <img src={tournament.image.url} alt="" className="w-full h-full object-cover object-[center_25%] opacity-50" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#001f3f] to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
