@@ -6,6 +6,7 @@ import TopSlider from './TopSlider';
 import Sponsors from '@/components/Sponsors';
 import LatestVideos from '@/components/LatestVideos';
 import InstagramFeed from '@/components/InstagramFeed';
+import EditablePlayerName from '@/components/EditablePlayerName';
 import { getCsvData } from '@/lib/csvParser';
 
 export const dynamic = 'force-dynamic';
@@ -251,16 +252,16 @@ export default async function Home() {
                     <tr key={i} className="hover:bg-slate-50 transition-colors group">
                       <td className="py-5 text-center font-mono text-slate-500 font-bold text-sm border-r border-slate-300">{p.rank}</td>
                       <td className="py-5 px-6 text-[14px] md:text-[16px] font-bold text-[#001f3f] whitespace-nowrap tracking-tight italic">
-                        {p.pid ? (
-                          <Link href={`/players/${p.pid}`} className="group/item inline-flex items-center gap-2 hover:text-red-600 transition-all">
-                            <span>{p.name}</span>
-                            <span className="text-[9px] bg-slate-100 group-hover/item:bg-red-600 group-hover/item:text-white text-slate-400 px-1.5 py-0.5 rounded-[2px] font-black tracking-widest uppercase not-italic transition-all">
-                              Profile
-                            </span>
-                          </Link>
-                        ) : (
-                          p.name
-                        )}
+                        <div className="flex items-center gap-2">
+                          <EditablePlayerName initialName={p.name} />
+                          {p.pid && (
+                            <Link href={`/players/${p.pid}`} className="group/item inline-flex items-center hover:opacity-80 transition-all">
+                              <span className="text-[9px] bg-slate-100 group-hover/item:bg-red-600 group-hover/item:text-white text-slate-400 px-1.5 py-0.5 rounded-[2px] font-black tracking-widest uppercase not-italic transition-all">
+                                Profile
+                              </span>
+                            </Link>
+                          )}
+                        </div>
                       </td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.out}</td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.in}</td>
