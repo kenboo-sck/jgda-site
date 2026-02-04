@@ -29,7 +29,7 @@ export default function InstagramFeed() {
             {/* Follow Button */}
             <div className="flex justify-center mt-12">
                 <a
-                    href="https://www.instagram.com/jgda.or.jp/"
+                    href="https://www.instagram.com/stepjump_tour/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group inline-flex items-center gap-4 px-10 py-4 bg-[#001f3f] text-white text-[11px] font-black tracking-[0.3em] uppercase italic transition-all hover:bg-red-600 hover:shadow-xl hover:-translate-y-1"
