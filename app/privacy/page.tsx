@@ -1,5 +1,11 @@
+import { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: 'プライバシーポリシー・個人情報保護方針',
+    description: '一般社団法人 日本プロゴルフ選手育成協会（JGDA）の個人情報保護方針。個人情報の収集目的、利用範囲、第三者提供、安全管理措置、開示・訂正・利用停止の請求方法について詳しく説明しています。お問い合わせ窓口情報も掲載。',
+};
 
 export default function PrivacyPage() {
     return (

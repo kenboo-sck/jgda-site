@@ -1,6 +1,12 @@
 // フォトギャラリー一覧ページ: 年度ごとに大会をリストアップします
+import { Metadata } from 'next';
 import { client } from '@/lib/client';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'フォトギャラリー・大会写真',
+  description: 'JGDA主催ゴルフ大会のフォトギャラリー。年度別に試合風景、選手のプレー写真、表彰式、優勝者の喜びの瞬間など、大会の思い出を高画質写真でご覧いただけます。プロを目指す若手選手たちの真剣な姿をお楽しみください。',
+};
 
 export const revalidate = 60;
 
@@ -10,8 +16,8 @@ export default async function PhotosListPage({ searchParams }: { searchParams: P
   // フィルターを外して全件取得し、プログラム側で安全にフィルタリングします
   const res = await client.get({
     endpoint: 'videos',
-    queries: { 
-      limit: 100, 
+    queries: {
+      limit: 100,
       orders: '-date'
     }
   }).catch(() => ({ contents: [] }));
@@ -42,7 +48,7 @@ export default async function PhotosListPage({ searchParams }: { searchParams: P
   // 2. 選択された年度（デフォルトは最新年）
   const selectedYear = sp.year || allYears[0] || new Date().getFullYear().toString();
   // 年度データがある場合のみフィルタリングし、ない場合は全件表示する
-  const filteredGalleries = allYears.length > 0 
+  const filteredGalleries = allYears.length > 0
     ? allGalleries.filter((g: any) => g.date?.includes(selectedYear))
     : allGalleries;
 
@@ -68,11 +74,10 @@ export default async function PhotosListPage({ searchParams }: { searchParams: P
             <Link
               key={year}
               href={`/photos?year=${year}`}
-              className={`px-8 py-3 text-sm font-black italic tracking-[0.2em] transition-all rounded-sm ${
-                selectedYear === year 
-                ? 'bg-red-600 text-white shadow-lg' 
+              className={`px-8 py-3 text-sm font-black italic tracking-[0.2em] transition-all rounded-sm ${selectedYear === year
+                ? 'bg-red-600 text-white shadow-lg'
                 : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
-              }`}
+                }`}
             >
               {year}
             </Link>
@@ -83,21 +88,21 @@ export default async function PhotosListPage({ searchParams }: { searchParams: P
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {filteredGalleries.length > 0 ? (
             filteredGalleries.map((gallery: any) => (
-              <Link 
-                key={gallery.id} 
-                href={`/photos/${gallery.id}`} 
+              <Link
+                key={gallery.id}
+                href={`/photos/${gallery.id}`}
                 className="group block relative overflow-hidden bg-slate-900 aspect-[16/9]"
               >
                 {gallery.main_image?.url ? (
-                  <img 
-                    src={gallery.main_image.url} 
-                    alt={gallery.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" 
+                  <img
+                    src={gallery.main_image.url}
+                    alt={gallery.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white font-bold italic">NO IMAGE</div>
                 )}
-                
+
                 {/* オーバーレイテキスト */}
                 <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
                   <p className="text-red-600 text-[10px] font-black tracking-widest uppercase italic mb-2">
@@ -110,7 +115,7 @@ export default async function PhotosListPage({ searchParams }: { searchParams: P
                     View Gallery <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </div>
                 </div>
-                
+
                 {/* 装飾ライン */}
                 <div className="absolute top-0 left-0 w-1 h-full bg-red-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
               </Link>

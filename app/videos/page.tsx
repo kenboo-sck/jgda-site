@@ -1,8 +1,14 @@
+import { Metadata } from 'next';
 import { client } from '@/lib/client';
 import Link from 'next/link';
 
+export const metadata: Metadata = {
+  title: '大会動画・ハイライト',
+  description: 'JGDA主催ゴルフ大会の公式動画コンテンツ。日刊スポーツ・ゴルフチャンネル提供による試合ハイライト、優勝者インタビュー、プレー解説動画を年度別にご覧いただけます。YouTube公式チャンネルで最新動画を配信中。',
+};
+
 // キャッシュの設定（1分ごとに更新）
-export const revalidate = 60; 
+export const revalidate = 60;
 
 export default async function VideosListPage({ searchParams }: { searchParams: Promise<{ year?: string }> }) {
   const sp = await searchParams;
@@ -21,12 +27,12 @@ export default async function VideosListPage({ searchParams }: { searchParams: P
     const t = v.type;
     // 1. 種別が未設定の場合：URLがあれば動画とみなす（既に上でチェック済み）
     if (!t) return true;
-    
+
     // 2. 種別が設定されている場合
     const target = Array.isArray(t) ? t[0] : t;
     const id = typeof target === 'string' ? target : target?.id;
     const val = typeof target === 'string' ? target : target?.value;
-    
+
     // 明示的に photo (9pX1xNYa6K) でない限り、URLがあれば動画として扱う
     return id !== '9pX1xNYa6K' && val !== 'photo';
   });
@@ -39,13 +45,13 @@ export default async function VideosListPage({ searchParams }: { searchParams: P
 
   // 2. 選択された年度（デフォルトは最新年）
   const selectedYear = sp.year || allYears[0] || new Date().getFullYear().toString();
-  const filteredVideos = allYears.length > 0 
+  const filteredVideos = allYears.length > 0
     ? allVideos.filter((v: any) => v.date?.includes(selectedYear))
     : allVideos;
 
   return (
     <main className="bg-white min-h-screen pb-20 font-sans text-slate-900">
-      
+
       {/* ヘッダーエリア */}
       <div className="bg-[#001f3f] text-white py-16 px-4 border-b-4 border-red-600">
         <div className="max-w-5xl mx-auto">
@@ -63,18 +69,17 @@ export default async function VideosListPage({ searchParams }: { searchParams: P
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-12">
-        
+
         {/* 年度切り替えタブナビゲーション */}
         <div className="flex flex-wrap gap-2 mb-16 border-b border-slate-100 pb-8">
           {allYears.map(year => (
             <Link
               key={year}
               href={`/videos?year=${year}`}
-              className={`relative px-8 py-3 text-sm font-black italic tracking-[0.2em] transition-all overflow-hidden group ${
-                selectedYear === year 
-                ? 'text-white' 
+              className={`relative px-8 py-3 text-sm font-black italic tracking-[0.2em] transition-all overflow-hidden group ${selectedYear === year
+                ? 'text-white'
                 : 'text-[#001f3f] hover:text-red-600'
-              }`}
+                }`}
             >
               <span className="relative z-10">{year}</span>
               {selectedYear === year && (
@@ -89,25 +94,25 @@ export default async function VideosListPage({ searchParams }: { searchParams: P
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredVideos.length > 0 ? (
             filteredVideos.map((video: any) => (
-              <a 
-                key={video.id} 
-                href={video.url} 
-                target="_blank" 
+              <a
+                key={video.id}
+                href={video.url}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group block"
               >
                 {/* サムネイルコンテナ */}
                 <div className="relative aspect-video bg-slate-900 mb-5 overflow-hidden border border-slate-200 group-hover:border-[#001f3f] transition-all shadow-md group-hover:shadow-xl">
                   {video.image?.url ? (
-                    <img 
-                      src={video.image.url} 
-                      alt={video.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" 
+                    <img
+                      src={video.image.url}
+                      alt={video.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-700 font-bold italic">NO IMAGE</div>
                   )}
-                  
+
                   {/* 再生アイコンオーバーレイ */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center text-white shadow-2xl transform scale-90 group-hover:scale-100 transition-all duration-300">

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'ニュース',
-  description: 'JGDAの最新ニュース、大会レポート、お知らせ一覧です。',
+  title: '最新ニュース・お知らせ',
+  description: 'JGDA（日本プロゴルフ選手育成協会）の最新ニュース一覧。大会レポート、選手の活躍情報、プロテスト合格者発表、イベント告知、協会からのお知らせを随時更新中。ゴルフ界の最新動向をお届けします。',
 };
 
 export const revalidate = 60;

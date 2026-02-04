@@ -4,8 +4,8 @@ import Link from 'next/link';
 import React from 'react';
 
 export const metadata: Metadata = {
-    title: 'ギャラリー観戦',
-    description: 'JGDA主催大会のギャラリー観戦案内ページです。チケット情報、アクセス、観戦マナーなどについてご確認いただけます。',
+    title: 'ギャラリー観戦のご案内',
+    description: 'JGDA主催ゴルフ大会のギャラリー観戦案内ページ。観戦チケット情報、料金、会場へのアクセス方法、駐車場情報、観戦マナー・ルールをご確認いただけます。プロを目指す若手選手たちの真剣勝負をぜひ会場でご観戦ください。',
 };
 
 export const revalidate = 60;

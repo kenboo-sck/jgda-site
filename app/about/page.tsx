@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { AboutHeroImage } from './AboutHeroImage';
 
 export const metadata: Metadata = {
-  title: 'JGDAとは',
-  description: '一般社団法人 日本プロゴルフ選手育成協会（JGDA）の理念、代表理事挨拶、活動内容についてご紹介します。',
+  title: 'JGDAとは・協会概要',
+  description: '一般社団法人 日本プロゴルフ選手育成協会（JGDA）の協会概要ページ。2021年発足、代表理事 藤井かすみによる挨拶、協会の理念・ミッション、活動内容、プロテスト合格者実績、過去の大会履歴をご紹介。ゴルフ界の未来を担う若手選手の育成に取り組んでいます。',
 };
 
 export const revalidate = 60;

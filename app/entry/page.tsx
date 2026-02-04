@@ -1,5 +1,11 @@
+import { Metadata } from 'next';
 import { client } from '@/lib/client';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '大会エントリー・年間スケジュール',
+  description: 'JGDA主催ゴルフ大会へのエントリー受付ページ。現在募集中の大会一覧、参加資格、エントリー費用、申込方法をご確認いただけます。年間のツアースケジュールも掲載。プロテスト合格を目指す研修生・アマチュア選手の皆様のご参加をお待ちしています。',
+};
 
 export const revalidate = 60;
 

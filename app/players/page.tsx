@@ -1,8 +1,14 @@
+import { Metadata } from 'next';
 import { client } from '@/lib/client';
 import Link from 'next/link';
 
+export const metadata: Metadata = {
+  title: '所属選手一覧・選手検索',
+  description: 'JGDA（日本プロゴルフ選手育成協会）所属選手の一覧ページ。五十音順・出身エリア別で選手を検索可能。各選手のプロフィール、戦績、出身地、所属先情報を掲載。JLPGAプロテスト合格者も多数在籍。未来のプロゴルファーたちをご紹介します。',
+};
+
 // キャッシュの設定（必要に応じて調整してください）
-export const revalidate = 60; 
+export const revalidate = 60;
 
 const REGION_MAP: { [key: string]: string[] } = {
   "北海道・東北エリア": ["北海道", "青森", "岩手", "宮城", "秋田", "山形", "福島"],
@@ -46,7 +52,7 @@ const REGION_ORDER = ["北海道・東北エリア", "関東甲信越エリア",
 
 export default async function PlayersListPage({ searchParams }: { searchParams: Promise<{ row?: string, area?: string }> }) {
   const { row, area } = await searchParams;
-  
+
   // 全選手データを取得（100件を超える可能性を考慮してループで取得）
   const fetchAllPlayers = async () => {
     let allContents: any[] = [];
@@ -56,10 +62,10 @@ export default async function PlayersListPage({ searchParams }: { searchParams: 
     while (true) {
       const res = await client.get({
         endpoint: 'players',
-        queries: { 
-          limit: limit, 
-          offset: offset, 
-          orders: 'nameKana' 
+        queries: {
+          limit: limit,
+          offset: offset,
+          orders: 'nameKana'
         }
       });
       allContents = [...allContents, ...res.contents];
@@ -101,7 +107,7 @@ export default async function PlayersListPage({ searchParams }: { searchParams: 
           </h1>
         </div>
       </div>
-      
+
       <div className="max-w-5xl mx-auto px-4 py-12">
         {/* 検索・フィルタセクション */}
         <div className="space-y-8 mb-16 bg-slate-50 p-6 md:p-8 rounded-sm border border-slate-100">
@@ -114,9 +120,9 @@ export default async function PlayersListPage({ searchParams }: { searchParams: 
                 ALL
               </Link>
               {KANA_ROWS.map(r => (
-                <Link 
-                  key={r} 
-                  href={`/players?row=${r}`} 
+                <Link
+                  key={r}
+                  href={`/players?row=${r}`}
                   className={`w-10 h-10 flex items-center justify-center border font-black text-xs transition-all rounded-sm ${row === r ? 'bg-red-600 text-white border-red-600' : 'bg-white border-slate-200 text-[#001f3f] hover:border-[#001f3f]'}`}
                 >
                   {r}
@@ -131,9 +137,9 @@ export default async function PlayersListPage({ searchParams }: { searchParams: 
             </p>
             <div className="flex flex-wrap gap-2">
               {REGION_ORDER.map(r => (
-                <Link 
-                  key={r} 
-                  href={`/players?area=${r}`} 
+                <Link
+                  key={r}
+                  href={`/players?area=${r}`}
                   className={`px-4 h-10 flex items-center justify-center border font-black text-[10px] uppercase tracking-wider transition-all rounded-sm ${area === r ? 'bg-red-600 text-white border-red-600' : 'bg-white border-slate-200 text-[#001f3f] hover:border-[#001f3f]'}`}
                 >
                   {r.replace("エリア", "")}
@@ -153,21 +159,21 @@ export default async function PlayersListPage({ searchParams }: { searchParams: 
                 </h2>
                 <div className="flex-1 h-[1px] bg-slate-200"></div>
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {groupedPlayers[group].map((player: any) => (
                   <Link href={`/players/${player.id}`} key={player.id} className="group block bg-slate-50 border border-slate-200 hover:border-[#001f3f] transition-colors">
                     <div className="aspect-[3/4] bg-slate-200 relative overflow-hidden">
-                       {player.image?.url ? (
-                         <img src={player.image.url} alt={player.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                       ) : (
-                         <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic">NO IMAGE</div>
-                       )}
-                       {player.bio?.includes("プロテスト合格") && (
-                         <div className="absolute top-0 left-0 bg-red-600 text-white text-[10px] font-black px-2 py-1 italic tracking-tighter z-10">
-                           PRO TEST PASSED
-                         </div>
-                       )}
+                      {player.image?.url ? (
+                        <img src={player.image.url} alt={player.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic">NO IMAGE</div>
+                      )}
+                      {player.bio?.includes("プロテスト合格") && (
+                        <div className="absolute top-0 left-0 bg-red-600 text-white text-[10px] font-black px-2 py-1 italic tracking-tighter z-10">
+                          PRO TEST PASSED
+                        </div>
+                      )}
                     </div>
                     <div className="p-4">
                       <h2 className="text-lg font-black text-[#001f3f] italic uppercase leading-none mb-1 group-hover:text-red-600 transition-colors">{player.name}</h2>

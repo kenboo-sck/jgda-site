@@ -1,5 +1,11 @@
+import { Metadata } from 'next';
 import { client } from '@/lib/client';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '大会結果・リーダーボード',
+  description: 'JGDA主催ゴルフ大会の試合結果一覧。年度別に全大会のスコア、順位表（リーダーボード）、優勝者・入賞者情報、ホールバイホールの詳細成績をご確認いただけます。過去の大会アーカイブも充実。',
+};
 
 // キャッシュの設定（必要に応じて調整してください）
 export const revalidate = 0;
@@ -88,8 +94,8 @@ export default async function ResultsListPage({ searchParams }: any) {
           <Link
             href="/results?year=all"
             className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${selectedYear === 'all'
-                ? 'bg-[#001f3f] text-white shadow-lg transform -translate-y-1'
-                : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
+              ? 'bg-[#001f3f] text-white shadow-lg transform -translate-y-1'
+              : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
               }`}
           >
             ALL
@@ -99,8 +105,8 @@ export default async function ResultsListPage({ searchParams }: any) {
               key={year}
               href={`/results?year=${year}`}
               className={`px-6 py-2 text-sm font-black italic tracking-widest transition-all rounded-sm ${selectedYear === year
-                  ? 'bg-red-600 text-white shadow-lg transform -translate-y-1'
-                  : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
+                ? 'bg-red-600 text-white shadow-lg transform -translate-y-1'
+                : 'bg-slate-100 text-[#001f3f] hover:bg-slate-200'
                 }`}
             >
               {year}

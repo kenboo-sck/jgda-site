@@ -1,5 +1,11 @@
+import { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: '利用規約・サイトポリシー',
+    description: '一般社団法人 日本プロゴルフ選手育成協会（JGDA）公式サイトの利用規約。サイト利用条件、禁止事項、知的財産権、免責事項、規約変更、準拠法・裁判管轄について定めています。ご利用前に必ずお読みください。',
+};
 
 export default function TermsPage() {
     return (
