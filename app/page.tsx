@@ -341,7 +341,7 @@ export default async function Home() {
       {/* 8. Instagramセクション */}
       <section className="bg-white py-24">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-          <InstagramFeed data={[]} />
+          <InstagramFeed />
         </div>
       </section>
     </main>
