@@ -208,7 +208,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
                 <div className="text-sm text-slate-600 leading-relaxed max-w-2xl">
                   <p>締め切り前に定員一杯となった場合、キャンセル待ち希望の選手は、事務局へ直接連絡をいただきますようお願いいたします。</p>
                   <p className="mt-2">
-                    竹内メールアドレス <a href="mailto:takeuchi@jgda.or.jp" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">takeuchi@jgda.or.jp</a> もしくは <a href="https://line.me/ti/p/YOUR_LINE_ID" target="_blank" rel="noopener noreferrer" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">竹内LINE</a> までお願いいたします。
+                    竹内メールアドレス <a href="mailto:takeuchi@jgda.or.jp" className="text-[#001f3f] font-bold underline decoration-slate-300 underline-offset-4 hover:decoration-[#001f3f] transition-colors">takeuchi@jgda.or.jp</a> もしくは竹内LINEまでお願いいたします。
                   </p>
                 </div>
               </div>
