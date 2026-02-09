@@ -7,6 +7,7 @@ import Sponsors from '@/components/Sponsors';
 import LatestVideos from '@/components/LatestVideos';
 import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
+import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -160,6 +161,9 @@ export default async function Home() {
 
       {/* 1. スライダーエリア */}
       <TopSlider data={sliderRes.contents} />
+
+      {/* 1.5. エントリーバナー */}
+      <TournamentEntryBanner />
 
       {/* 2 & 3. 大会コンテンツ & リーダーボード */}
       <section className="bg-white py-24">
