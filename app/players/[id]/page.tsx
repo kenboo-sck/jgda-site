@@ -425,7 +425,37 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
                 <h2 className="text-xl font-black text-[#001f3f] italic uppercase tracking-widest mb-6 border-b-2 border-slate-100 pb-2 inline-block">
                   Tournament Results
                 </h2>
-                <div className="overflow-x-auto border border-slate-100 rounded-sm">
+
+                {/* Mobile View (Stacked List) */}
+                <div className="md:hidden space-y-4">
+                  {playerResults.map((res, idx) => (
+                    <div key={idx} className="border border-slate-100 rounded-sm p-4 bg-white shadow-sm transition-all hover:border-red-600/20">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="text-slate-400 font-bold text-[10px] italic leading-none">{res.tournament.date}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[9px] font-black text-slate-300 italic uppercase">Pos</span>
+                          <span className="font-black italic text-[#001f3f] text-sm leading-none">{res.displayRank}</span>
+                        </div>
+                      </div>
+                      <Link href={`/results/${res.tournament.tournament_id}`} className="block font-black text-[#001f3f] hover:text-red-600 transition-colors italic uppercase text-base mb-4 leading-tight">
+                        {res.tournament.title}
+                      </Link>
+                      <div className="flex items-center justify-between border-t border-slate-50 pt-3">
+                        <div className="flex flex-col">
+                          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Score</span>
+                          <span className="font-black italic text-red-600 text-2xl leading-none mt-1.5">{res.displayScore}</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Total Strokes</span>
+                          <span className="font-bold text-slate-600 text-base mt-2 leading-none font-mono">{res.displayTotal}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop View (Traditional Table) */}
+                <div className="hidden md:block overflow-x-auto border border-slate-100 rounded-sm">
                   <table className="w-full text-sm text-left border-collapse">
                     <thead>
                       <tr className="bg-slate-50 text-[#001f3f] font-black italic uppercase text-[10px] tracking-widest">
