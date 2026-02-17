@@ -9,8 +9,7 @@ import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 600; // 600秒（10分）ごとに1回だけサーバーを動かす
 
 export default async function Home() {
   const tourRes = await client.get({
