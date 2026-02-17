@@ -39,7 +39,7 @@ export default async function Home() {
     while (true) {
       const res = await client.get({
         endpoint: 'players',
-        queries: { limit: limit, offset: offset, fields: 'id,name' }
+        queries: { limit: limit, offset: offset, fields: 'id,name,image' }
       });
       allContents = [...allContents, ...res.contents];
       if (res.contents.length < limit) break;
@@ -49,11 +49,11 @@ export default async function Home() {
   };
 
   const playersContents = await fetchAllPlayers().catch(() => []);
-  const playerInfoMap: Record<string, string> = {};
+  const playerInfoMap: Record<string, { id: string, image?: string }> = {};
   playersContents.forEach((p: any) => {
     if (p.name) {
       const key = p.name.normalize('NFKC').replace(/[@＠]/g, '').replace(/[\s　\.\u00a0\t\r\n]+/g, "").toLowerCase().trim();
-      playerInfoMap[key] = p.id;
+      playerInfoMap[key] = { id: p.id, image: p.image?.url };
     }
   });
 
@@ -78,12 +78,13 @@ export default async function Home() {
           }
           const name = r.name || 'Unknown';
           const matchKey = name.normalize('NFKC').replace(/[@＠]/g, '').replace(/[\s　\.\u00a0\t\r\n]+/g, "").toLowerCase().trim();
-          const pid = playerInfoMap[matchKey];
+          const pData = playerInfoMap[matchKey];
 
           return {
             rank: r.rank || '-',
             name: name,
-            pid: pid,
+            pid: pData?.id,
+            imageUrl: pData?.image,
             out: is2Day ? (r['1r'] || r['1R'] || '-') : (r.out || '-'),
             in: is2Day ? (r.total || r.TOTAL || r.Total || '-') : (r.in || '-'),
             score: scoreVal,
@@ -238,7 +239,60 @@ export default async function Home() {
               </div>
               <span className="text-[9px] text-slate-500 font-mono font-bold tracking-widest uppercase italic">Final Day Data</span>
             </div>
-            <div className="overflow-x-auto bg-white border-x border-b border-slate-400">
+            {/* Mobile View (No-Scroll Style) */}
+            <div className="md:hidden bg-white border-x border-b border-slate-400">
+              <div className="divide-y divide-slate-200">
+                {players.map((p, i) => (
+                  <div key={i} className="px-4 py-4 flex items-center justify-between gap-3 hover:bg-slate-50 transition-colors">
+                    {/* Rank */}
+                    <div className="w-8 flex-shrink-0 text-center">
+                      <span className="text-xs font-mono font-bold text-slate-400">{p.rank}</span>
+                    </div>
+
+                    {/* Image & Name */}
+                    <div className="flex-1 min-w-0 flex items-center gap-3">
+                      {p.imageUrl ? (
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-50 flex-shrink-0">
+                          <img src={p.imageUrl} alt="" className="w-full h-full object-cover" />
+                        </div>
+                      ) : (
+                        <div className="w-10 h-10 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-slate-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+                        </div>
+                      )}
+
+                      <div className="min-w-0">
+                        <div className="mb-0.5 mt-[-2px]">
+                          {p.pid ? (
+                            <Link href={`/players/${p.pid}`} className="text-[13px] font-bold text-[#001f3f] hover:text-red-600 transition-colors inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 leading-tight">
+                              <span>{p.name}</span>
+                              <span className="text-[8px] flex-shrink-0 bg-slate-100 text-slate-400 px-1 py-0 rounded-[2px] font-black tracking-widest uppercase not-italic">Profile</span>
+                            </Link>
+                          ) : (
+                            <span className="text-[13px] font-bold text-[#001f3f] italic tracking-tight leading-tight block">{p.name}</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 text-[10px] text-slate-400 font-mono font-medium">
+                          <span>{p.is2Day ? '1R' : 'Out'}:{p.out}</span>
+                          <div className="w-[1px] h-2 bg-slate-200"></div>
+                          <span>{p.is2Day ? '2R' : 'In'}:{p.in}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Score */}
+                    <div className="w-16 flex-shrink-0 text-right">
+                      <span className="text-2xl font-black italic tracking-tighter text-red-600 leading-none">
+                        {p.score}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop View (Table) */}
+            <div className="hidden md:block overflow-x-auto bg-white border-x border-b border-slate-400">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="text-[#333] text-[10px] font-bold tracking-[0.1em] uppercase border-b border-slate-400 bg-slate-50">
@@ -253,17 +307,26 @@ export default async function Home() {
                   {players.map((p, i) => (
                     <tr key={i} className="hover:bg-slate-50 transition-colors group">
                       <td className="py-5 text-center font-mono text-slate-500 font-bold text-sm border-r border-slate-300">{p.rank}</td>
-                      <td className="py-5 px-6 text-[14px] md:text-[16px] font-bold text-[#001f3f] whitespace-nowrap tracking-tight italic select-none" contentEditable={false} suppressContentEditableWarning>
-                        {p.pid ? (
-                          <Link href={`/players/${p.pid}`} className="group/item inline-flex items-center gap-2 hover:text-red-600 transition-all pointer-events-auto">
+                      <td className="py-5 px-6 text-[14px] font-bold text-[#001f3f] tracking-tight italic select-none leading-tight">
+                        <div className="flex items-center gap-3">
+                          {p.imageUrl ? (
+                            <img src={p.imageUrl} alt="" className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" />
+                          ) : (
+                            <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
+                              <svg className="w-4 h-4 text-slate-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+                            </div>
+                          )}
+                          {p.pid ? (
+                            <Link href={`/players/${p.pid}`} className="group/item inline-flex items-center gap-2 hover:text-red-600 transition-all pointer-events-auto">
+                              <span className="pointer-events-none">{p.name}</span>
+                              <span className="text-[9px] bg-slate-100 group-hover/item:bg-red-600 group-hover/item:text-white text-slate-400 px-1.5 py-0.5 rounded-[2px] font-black tracking-widest uppercase not-italic transition-all pointer-events-none">
+                                Profile
+                              </span>
+                            </Link>
+                          ) : (
                             <span className="pointer-events-none">{p.name}</span>
-                            <span className="text-[9px] bg-slate-100 group-hover/item:bg-red-600 group-hover/item:text-white text-slate-400 px-1.5 py-0.5 rounded-[2px] font-black tracking-widest uppercase not-italic transition-all pointer-events-none">
-                              Profile
-                            </span>
-                          </Link>
-                        ) : (
-                          <span className="pointer-events-none">{p.name}</span>
-                        )}
+                          )}
+                        </div>
                       </td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.out}</td>
                       <td className="py-5 text-center text-slate-600 font-medium text-xs border-l border-slate-300">{p.in}</td>
@@ -335,18 +398,10 @@ export default async function Home() {
       <Sponsors data={sponsorsData} />
 
       {/* 7. YouTubeコンテンツ */}
-      <section className="bg-[#f8f9fa] py-24 border-y border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-          <LatestVideos data={latestVideosData} />
-        </div>
-      </section>
+      <LatestVideos data={latestVideosData} />
 
       {/* 8. Instagramセクション */}
-      <section className="bg-white py-24">
-        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-          <InstagramFeed />
-        </div>
-      </section>
+      <InstagramFeed />
     </main>
   );
 }
