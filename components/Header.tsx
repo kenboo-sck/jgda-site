@@ -43,33 +43,36 @@ export default function Header() {
 
   return (
     <>
-      <header className={`sticky top-0 z-50 shadow-sm transition-all duration-300 ${isOpen ? 'bg-[#001f3f] border-[#001f3f]' : 'bg-white/95 backdrop-blur-md border-slate-200'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="flex items-center justify-between h-20">
+      <header
+        className={`sticky top-0 z-50 w-full h-20 transition-colors duration-500 border-b ${isOpen ? 'bg-[#001f3f] border-[#001f3f]' : 'bg-white/95 backdrop-blur-md border-slate-200 shadow-sm'
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-8 h-full">
+          <div className="flex items-center justify-between h-full">
 
             {/* --- ロゴセクション --- */}
-            <div className="flex items-center z-50 relative">
-              <Link href="/" className={`flex items-center transition-all duration-300 ${isOpen ? 'brightness-0 invert' : ''}`} onClick={() => setIsOpen(false)}>
-                {/* PC用ロゴ（768px以上で表示） */}
+            <div className="flex items-center z-[60] relative">
+              <Link
+                href="/"
+                className={`flex items-center transition-all duration-300 ${isOpen ? 'brightness-0 invert' : ''}`}
+                onClick={() => setIsOpen(false)}
+              >
                 <img
                   src={LOGO_PC}
                   alt="JGDA"
                   className="hidden md:block h-12 w-auto object-contain"
                   style={{ minWidth: '120px' }}
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-                {/* スマホ用ロゴ（768px未満で表示） */}
                 <img
                   src={LOGO_SP}
                   alt="JGDA"
                   className="md:hidden h-10 w-auto object-contain"
                   style={{ minWidth: '100px' }}
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
               </Link>
             </div>
 
-            {/* --- ナビゲーションセクション（デスクトップ） --- */}
+            {/* --- デスクトップナビ --- */}
             <nav className="hidden lg:block">
               <ul className="flex gap-6 text-[12px] font-black tracking-widest text-[#001f3f] uppercase italic">
                 {navItems.map((item) => (
@@ -83,12 +86,12 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* モバイル用メニューボタン */}
-            <div className="lg:hidden z-50 relative">
+            {/* スマホ用メニューボタン */}
+            <div className="lg:hidden z-[60] relative">
               <button
                 className={`p-2 focus:outline-none transition-colors duration-300 ${isOpen ? 'text-white' : 'text-[#001f3f]'}`}
                 onClick={() => setIsOpen(!isOpen)}
-                aria-label="メニューを開く"
+                aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
               >
                 <div className="w-6 h-5 relative flex flex-col justify-between">
                   <span className={`w-full h-[2px] bg-current transform transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
@@ -98,34 +101,50 @@ export default function Header() {
               </button>
             </div>
 
-            {/* モバイルメニューオーバーレイ */}
-            <div className={`fixed inset-0 bg-[#001f3f] z-40 flex flex-col items-center justify-center transition-all duration-500 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-              <nav>
-                <ul className="flex flex-col gap-6 text-center">
-                  {navItems.map((item) => (
-                    <li key={item.name}>
+            {/* モバイルメニューオーバーレイ：ヘッダーの下（z-40）からロールダウン */}
+            <div
+              className={`fixed top-[80px] left-0 w-full h-[calc(100dvh-80px)] bg-[#001f3f] z-40 overflow-y-auto transition-all duration-700 ease-in-out transform ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+                }`}
+              style={{
+                WebkitOverflowScrolling: 'touch', // Safariで滑らかにスクロールさせるため
+              }}
+            >
+              <nav className="w-full flex justify-center pt-8 pb-[40vh]">
+                <ul className="flex flex-col items-center gap-3 w-full px-10">
+                  {navItems.map((item, idx) => (
+                    <li key={item.name}
+                      className={`w-full text-center transition-all duration-700 transform ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
+                        }`}
+                      style={{ transitionDelay: `${isOpen ? idx * 40 + 150 : 0}ms` }}
+                    >
                       <Link
                         href={item.href}
-                        className="text-2xl font-black text-white italic uppercase tracking-widest hover:text-red-500 transition-colors"
+                        className="text-base font-black text-white italic tracking-[0.2em] hover:text-red-500 transition-colors block py-2 border-b border-white/5"
                         onClick={() => setIsOpen(false)}
                       >
                         {item.name}
                       </Link>
                     </li>
                   ))}
+                  <li className="mt-6 text-center">
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="text-[10px] text-white/40 font-bold tracking-[0.3em] uppercase border border-white/20 px-8 py-3 rounded-full hover:bg-white/10 transition-colors"
+                    >
+                      Close Menu
+                    </button>
+                  </li>
                 </ul>
               </nav>
             </div>
-
           </div>
         </div>
-
       </header>
 
       {/* スクロールトップボタン */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-4 right-4 z-40 p-3 bg-[#001f3f] text-white shadow-xl rounded-sm transition-all duration-500 hover:bg-red-600 focus:outline-none border border-white/10 ${showScrollTop && !isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        className={`fixed bottom-4 right-4 z-[70] p-3 bg-[#001f3f] text-white shadow-xl rounded-sm transition-all duration-500 hover:bg-red-600 focus:outline-none border border-white/10 ${showScrollTop && !isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         aria-label="ページトップへ戻る"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
