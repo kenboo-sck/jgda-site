@@ -9,7 +9,7 @@ import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 
-export const revalidate = 600; // 600秒（10分）ごとに1回だけサーバーを動かす
+export const revalidate = 3600; // 3600秒（60分）ごとに1回だけサーバーを動かす
 
 export default async function Home() {
   const tourRes = await client.get({
