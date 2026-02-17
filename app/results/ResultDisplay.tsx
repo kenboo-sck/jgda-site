@@ -250,6 +250,7 @@ export default function ResultDisplay({ info, parRow: originalParRow, playerResu
                   const pInfo = playerInfoMap[matchKey];
                   const pid = pInfo?.id;
                   const pAffiliation = pInfo?.affiliation;
+                  const pImage = pInfo?.imageUrl;
 
                   const r1Score = row.r1Score || row.out;
                   const r2Score = row.r2Score || (isTwoDay ? (row.total || row.TOTAL || row.Total || row.in) : row.in);
@@ -272,8 +273,13 @@ export default function ResultDisplay({ info, parRow: originalParRow, playerResu
                         {renderSafe(row.displayRank || row.rank)}
                       </div>
 
-                      <div className="mt-4 flex items-start justify-between">
-                        <div className="flex-1 pr-2">
+                      <div className="mt-4 flex items-center justify-between gap-3">
+                        {pImage && (
+                          <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-200 shadow-sm flex-shrink-0">
+                            <img src={pImage} alt={nameStr} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <div className="flex-1 pr-1 min-w-0">
                           {/* Name */}
                           <div className="flex flex-wrap items-center gap-2 mb-1">
                             {pid ? (

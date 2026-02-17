@@ -2,7 +2,7 @@ import { client } from '@/lib/client';
 import { getCsvData } from '@/lib/csvParser';
 import fs from 'fs';
 import path from 'path';
-import ResultDisplay from '../ResultDisplay'; 
+import ResultDisplay from '../ResultDisplay';
 
 export default async function Page({ params }: any) {
   // Promiseを解決（Next.js 15対応）
@@ -22,7 +22,7 @@ export default async function Page({ params }: any) {
   // 例: csv_name="test.csv" -> baseName="test"
   const csvField = info.csv_name || id;
   const baseName = csvField.replace('.csv', '');
-  
+
   // 1. 通常のファイル読み込み
   const mainPath = path.join(process.cwd(), 'public', 'data', `${baseName}.csv`);
   const mainData = fs.existsSync(mainPath) ? getCsvData(`${baseName}.csv`) : [];
@@ -42,21 +42,21 @@ export default async function Page({ params }: any) {
     let allContents: any[] = [];
     let offset = 0;
     const limit = 100;
-    
+
     while (true) {
       const res = await client.get({
         endpoint: 'players',
-        queries: { 
-          limit: limit, 
-          offset: offset, 
-          fields: 'id,name,affiliation' 
+        queries: {
+          limit: limit,
+          offset: offset,
+          fields: 'id,name,affiliation,image'
         }
       });
       allContents = [...allContents, ...res.contents];
-      
+
       // 取得した件数が limit (100) 未満なら、もう次のデータはないので終了
       if (res.contents.length < limit) break;
-      
+
       // 次の100件を取得するためにoffsetを増やす
       offset += limit;
     }
@@ -68,12 +68,12 @@ export default async function Page({ params }: any) {
     return [];
   });
 
-  const playerInfoMap: Record<string, { id: string, affiliation?: string }> = {};
+  const playerInfoMap: Record<string, { id: string, affiliation?: string, imageUrl?: string }> = {};
   playersContents.forEach((p: any) => {
     if (p.name) {
       // 照合用キーの作成：NFKC正規化（全角半角の統一）、＠、スペース、ドット、特殊空白を除去し、小文字化
       const key = p.name.normalize('NFKC').replace(/[@＠]/g, '').replace(/[\s　\.\u00a0\t\r\n]+/g, "").toLowerCase().trim();
-      playerInfoMap[key] = { id: p.id, affiliation: p.affiliation };
+      playerInfoMap[key] = { id: p.id, affiliation: p.affiliation, imageUrl: p.image?.url };
     }
   });
 
