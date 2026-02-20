@@ -1,5 +1,6 @@
 import { client } from '@/lib/client';
 import Link from 'next/link';
+import Image from 'next/image'; // 💡 ここを追加しました
 import fs from 'fs';
 import path from 'path';
 import TopSlider from './TopSlider';
@@ -9,7 +10,7 @@ import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 
-export const revalidate = 3600; // 3600秒（60分）ごとに1回だけサーバーを動かす
+export const revalidate = 3600;
 
 export default async function Home() {
   const tourRes = await client.get({
@@ -17,7 +18,6 @@ export default async function Home() {
     queries: { limit: 100, orders: '-date' }
   }).catch(() => ({ contents: [] }));
 
-  // Get the latest tournament with 'results' status or a CSV assigned
   const tournament = tourRes?.contents?.find((t: any) => {
     const status = t.status || t.tournament_status;
     if (!status) return !!t.csv_name;
@@ -31,7 +31,6 @@ export default async function Home() {
     return checkMatch(status);
   });
 
-  // 💡 選手データを全件取得してマッピング
   const fetchAllPlayers = async () => {
     let allContents: any[] = [];
     let offset = 0;
@@ -101,13 +100,11 @@ export default async function Home() {
     queries: { limit: 3, orders: '-date' }
   }).catch(() => ({ contents: [] }));
 
-  // スライダーデータの取得
   const sliderRes = await client.get({
     endpoint: 'slider',
     queries: { orders: '-createdAt' }
   }).catch(() => ({ contents: [] }));
 
-  // スポンサーデータの取得 (videos APIで代用)
   const videosRes = await client.get({
     endpoint: 'videos',
     queries: {
@@ -116,17 +113,13 @@ export default async function Home() {
     }
   }).catch(() => ({ contents: [] }));
 
-  console.log("Sponsor Data from CMS:", videosRes.contents);
-
-  // videosのフィールドをSponsorコンポーネントの形式にマッピング
   const sponsorsData = videosRes.contents.map((v: any) => ({
     id: v.id,
-    name: v.title || 'Official Partner', // タイトルがない場合のフォールバック
-    logo: v.main_image || v.image || v.thumbnail, // main_imageを優先的に取得
-    url: v.url // 動画URLをリンク先に
+    name: v.title || 'Official Partner',
+    logo: v.main_image || v.image || v.thumbnail,
+    url: v.url
   }));
 
-  // 新着動画の取得 ( sponsorsを除外 )
   const allVideosRes = await client.get({
     endpoint: 'videos',
     queries: { limit: 20, orders: '-date' }
@@ -135,11 +128,9 @@ export default async function Home() {
   const latestVideosData = allVideosRes.contents
     .filter((v: any) => {
       if (!v.url) return false;
-      // categoryにsponsorが含まれるものは除外
       const cat = typeof v.category === 'string' ? v.category : (Array.isArray(v.category) ? v.category[0] : "");
       if (cat?.includes('sponsor')) return false;
 
-      // typeがphotoのものは除外 (app/videos/page.tsxのロジックを参考)
       const t = v.type;
       if (!t) return true;
       const target = Array.isArray(t) ? t[0] : t;
@@ -158,14 +149,9 @@ export default async function Home() {
 
   return (
     <main className="bg-white min-h-screen font-sans text-[#333] pb-32">
-
-      {/* 1. スライダーエリア */}
       <TopSlider data={sliderRes.contents} />
-
-      {/* 1.5. エントリーバナー */}
       <TournamentEntryBanner />
 
-      {/* 2 & 3. 大会コンテンツ & リーダーボード */}
       <section className="bg-white py-24">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
           <div className="mb-10 border-b border-slate-200 pb-6 flex items-baseline justify-between">
@@ -187,13 +173,21 @@ export default async function Home() {
               </h3>
             </header>
 
+            {/* 💡 修正箇所1：大会画像 */}
             {tournament?.image?.url && (
-              <div className="w-full aspect-[16/9] md:h-[550px] overflow-hidden bg-slate-900 border-b border-[#001f3f]">
-                <img src={tournament.image.url} className="w-full h-full object-cover" alt="Tournament Visual" />
+              <div className="w-full aspect-[16/9] md:h-[550px] overflow-hidden bg-slate-900 border-b border-[#001f3f] relative">
+                <Image 
+                  src={tournament.image.url} 
+                  alt="Tournament Visual" 
+                  fill 
+                  className="object-cover" 
+                  sizes="100vw"
+                />
               </div>
             )}
 
             <div className="bg-[#001f3f] py-10 px-8 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+              {/* (中略...元のままです) */}
               <div className="md:border-r border-white/10 px-6 flex items-start gap-4">
                 <div className="mt-1 text-red-500">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
@@ -230,7 +224,6 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* 4. リーダーボード */}
           <div className="border-t-4 border-[#001f3f]">
             <div className="bg-[#f8f9fa] py-4 px-6 border-x border-slate-400 border-b-2 border-slate-400 flex justify-between items-center text-[#001f3f]">
               <div className="flex items-center gap-2">
@@ -239,21 +232,27 @@ export default async function Home() {
               </div>
               <span className="text-[9px] text-slate-500 font-mono font-bold tracking-widest uppercase italic">Final Day Data</span>
             </div>
-            {/* Mobile View (No-Scroll Style) */}
+
+            {/* Mobile View */}
             <div className="md:hidden bg-white border-x border-b border-slate-400">
               <div className="divide-y divide-slate-200">
                 {players.map((p, i) => (
                   <div key={i} className="px-4 py-4 flex items-center justify-between gap-3 hover:bg-slate-50 transition-colors">
-                    {/* Rank */}
                     <div className="w-8 flex-shrink-0 text-center">
                       <span className="text-xs font-mono font-bold text-slate-400">{p.rank}</span>
                     </div>
 
-                    {/* Image & Name */}
                     <div className="flex-1 min-w-0 flex items-center gap-3">
+                      {/* 💡 修正箇所2：スマホ版の選手アイコン画像 */}
                       {p.imageUrl ? (
-                        <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-50 flex-shrink-0">
-                          <img src={p.imageUrl} alt="" className="w-full h-full object-cover" />
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-50 flex-shrink-0 relative">
+                          <Image 
+                            src={p.imageUrl} 
+                            alt={p.name} 
+                            fill 
+                            className="object-cover" 
+                            sizes="40px"
+                          />
                         </div>
                       ) : (
                         <div className="w-10 h-10 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
@@ -280,7 +279,6 @@ export default async function Home() {
                       </div>
                     </div>
 
-                    {/* Score */}
                     <div className="w-16 flex-shrink-0 text-right">
                       <span className="text-2xl font-black italic tracking-tighter text-red-600 leading-none">
                         {p.score}
@@ -309,8 +307,15 @@ export default async function Home() {
                       <td className="py-5 text-center font-mono text-slate-500 font-bold text-sm border-r border-slate-300">{p.rank}</td>
                       <td className="py-5 px-6 text-[14px] font-bold text-[#001f3f] tracking-tight italic select-none leading-tight">
                         <div className="flex items-center gap-3">
+                          {/* 💡 修正箇所3：PC版の選手アイコン画像 */}
                           {p.imageUrl ? (
-                            <img src={p.imageUrl} alt="" className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" />
+                            <Image 
+                              src={p.imageUrl} 
+                              alt={p.name} 
+                              width={32} 
+                              height={32} 
+                              className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" 
+                            />
                           ) : (
                             <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
                               <svg className="w-4 h-4 text-slate-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
@@ -352,7 +357,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5. ニュース */}
       <section className="bg-[#f8f9fa] py-24 border-y border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
           <div className="mb-16 flex items-end justify-between border-b-2 border-slate-200 pb-8">
@@ -370,8 +374,15 @@ export default async function Home() {
             {newsRes.contents.map((news: any) => (
               <Link href={`/news/${news.id}`} key={news.id} className="group block">
                 <div className="aspect-[3/2] bg-white mb-6 overflow-hidden border border-slate-200 group-hover:border-[#001f3f] transition-all relative">
+                  {/* 💡 修正箇所4：ニュースのサムネイル画像 */}
                   {news.image?.url && (
-                    <img src={news.image.url} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <Image 
+                      src={news.image.url} 
+                      alt={news.title} 
+                      fill 
+                      className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
                   )}
                 </div>
                 <p className="text-[9px] text-slate-400 mb-2 font-bold tracking-widest uppercase">
@@ -394,13 +405,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 6. スポンサーセクション (内部でbg-whiteを設定) */}
       <Sponsors data={sponsorsData} />
-
-      {/* 7. YouTubeコンテンツ */}
       <LatestVideos data={latestVideosData} />
-
-      {/* 8. Instagramセクション */}
       <InstagramFeed />
     </main>
   );
