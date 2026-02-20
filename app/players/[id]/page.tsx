@@ -111,6 +111,11 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
   const normalizedPlayerName = getMatchKey(player.name);
 
   for (const t of tournamentsContents) {
+    // まだ開催されていない大会（未来の日付）はスキップ
+    if (t.date && new Date(t.date) > new Date()) {
+      continue;
+    }
+
     const csvField = t.csv_name || t.tournament_id;
     if (!csvField) continue;
 
