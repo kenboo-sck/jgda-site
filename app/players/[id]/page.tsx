@@ -110,9 +110,31 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
   };
   const normalizedPlayerName = getMatchKey(player.name);
 
+  // 現在日時を取得（比較用）
+  const now = new Date();
+
   for (const t of tournamentsContents) {
+    // 日付のパースと未来判定
+    let tournamentDate: Date | null = null;
+    if (t.date) {
+      // 1. 標準的なDateパースを試みる
+      const d = new Date(t.date);
+      if (!isNaN(d.getTime())) {
+        tournamentDate = d;
+      } else {
+        // 2. 日本語形式 (例: 2026年4月17日) を試みる
+        const match = t.date.toString().match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+        if (match) {
+          tournamentDate = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+        }
+      }
+    }
+
+    // デバッグログ: 日付判定の状況を確認
+    // console.log(`Tournament: ${t.title}, DateStr: ${t.date}, Parsed: ${tournamentDate}, Future: ${tournamentDate ? tournamentDate > now : 'unknown'}`);
+
     // まだ開催されていない大会（未来の日付）はスキップ
-    if (t.date && new Date(t.date) > new Date()) {
+    if (tournamentDate && tournamentDate > now) {
       continue;
     }
 
