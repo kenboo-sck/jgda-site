@@ -126,21 +126,95 @@ body {
 
 .rich-text-content table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 2.5rem;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
-.rich-text-content th {
-  background-color: #f8fafc;
-  padding: 0.75rem;
-  border-bottom: 2px solid #001f3f;
-  text-align: left;
-  font-size: 0.875rem;
+/* モバイル対応：表が多段になるときは横スクロールさせる（必要に応じて親に overflow-x-auto） */
+@media (max-width: 640px) {
+  .rich-text-content {
+    overflow-x: auto;
+  }
+}
+
+/* 表のヘッダー・1行目の強制スタイル */
+.rich-text-content th,
+.rich-text-content tr:first-child td {
+  background-color: #001f3f !important;
+  color: #ffffff !important;
+  padding: 0.6rem 0.2rem !important;
+  /* 上下余白を均一に */
+  border-bottom: 2px solid #dc2626 !important;
+  text-align: center;
+  font-size: 0.75rem;
   font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+/* 1行目の中身が p や span で囲まれていても白文字と余白なしを強制 */
+.rich-text-content tr:first-child td *,
+.rich-text-content th * {
+  color: #ffffff !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
 }
 
 .rich-text-content td {
-  padding: 0.75rem;
+  padding: 0.75rem 0.2rem;
   border-bottom: 1px solid #e2e8f0;
-  font-size: 0.9375rem;
+  border-right: 1px solid #e2e8f0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  color: #001f3f;
+  background-color: #ffffff;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* 数字（ヤード）が入るセルの中の余白をリセット */
+.rich-text-content td * {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  display: inline-block;
+}
+
+/* 偶数行に色をつけて読みやすくする（ゼブラ柄） */
+.rich-text-content tr:nth-child(even) td {
+  background-color: #f8fafc !important;
+}
+
+/* スマホ最適化：横スクロールを無くし、画面に収める */
+@media (max-width: 640px) {
+  .rich-text-content table {
+    width: 100% !important;
+    table-layout: auto;
+    /* 名簿などは自動幅の方が読みやすい */
+    min-width: 0 !important;
+  }
+
+  .rich-text-content th,
+  .rich-text-content tr:first-child td,
+  .rich-text-content td {
+    font-size: 11px !important;
+    padding: 0.5rem 2px !important;
+  }
+}
+
+.rich-text-content tr:last-child td {
+  border-bottom: none;
+}
+
+.rich-text-content td:last-child,
+.rich-text-content th:last-child {
+  border-right: none;
 }

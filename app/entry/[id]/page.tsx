@@ -219,8 +219,9 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
 
           {/* 残りのセクション */}
           {[
-            { title: "Entry Status", subTitle: "エントリー状況", content: tournament.entry_status, icon: "status" },
             { title: "Entry Terms", subTitle: "エントリー条件", content: tournament.entry_terms, icon: "rules" },
+            { title: "Entry Status", subTitle: "エントリー状況", content: tournament.entry_status, icon: "status" },
+            { title: "Yardage", subTitle: "ヤーデージ", content: tournament.yardage, icon: "rules" },
             { title: "Practice Round", subTitle: "練習ラウンドについて", content: tournament.practice_info, icon: "guidance" },
             { title: "Prize Money", subTitle: "賞金", content: tournament.prize_money, icon: "prize" },
             { title: "Spectating", subTitle: "ギャラリー観戦", content: tournament.spectate_info, icon: "spectate" },
