@@ -51,20 +51,6 @@ export default async function ResultsListPage({ searchParams }: any) {
     return checkMatch(t.status);
   });
 
-  // ステータス判定ヘルパー（'results' や 'upcoming' を判定）
-  const checkStatus = (s: any, key: string) => {
-    const checkMatch = (x: any) => {
-      const id = (x?.id || "").toString().toLowerCase();
-      const val = (x?.value || x || "").toString().toLowerCase();
-      return id === key || val === key;
-    };
-    if (Array.isArray(s)) return s.some((x: any) => checkMatch(x));
-    return checkMatch(s);
-  };
-
-  // 募集中（upcoming）と結果（results）を分けて保持しておく
-  const upcomingTournaments = allData.filter((t: any) => t.status && checkStatus(t.status, 'upcoming'));
-  const resultsOnlyTournaments = allTournaments; // 既存ロジックで抽出された 'results'
 
   // 2. 年度を抽出して重複を排除
   const allYears = Array.from(new Set(allTournaments.map((t: any) => {
@@ -104,30 +90,6 @@ export default async function ResultsListPage({ searchParams }: any) {
 
       <div className="max-w-5xl mx-auto px-4 py-12">
 
-        {/* 募集中の大会（エントリー中など） */}
-        {upcomingTournaments.length > 0 && (
-          <div className="mb-8">
-            <h3 className="text-sm font-black text-[#001f3f] uppercase tracking-wider mb-4">Now Accepting Entries</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              {upcomingTournaments.map((t: any) => (
-                <Link
-                  key={t.id}
-                  href={`/results/${t.tournament_id}`}
-                  className="group block bg-white border border-slate-200 hover:border-[#001f3f] transition-all shadow-sm p-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] font-black text-red-600 uppercase tracking-[0.3em] mb-1">{t.date}</p>
-                      <h4 className="text-lg font-black text-[#001f3f] italic uppercase tracking-tight">{t.title}</h4>
-                      <p className="text-[11px] text-slate-500 mt-2">{t.venue}</p>
-                    </div>
-                    <div className="text-sm font-black text-[#001f3f] uppercase">Entry</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* 年度切り替えナビゲーション */}
         <div className="flex flex-wrap gap-3 mb-12 border-b border-slate-200 pb-8">
