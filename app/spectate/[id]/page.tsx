@@ -108,12 +108,12 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                         <p className="text-sm text-slate-600 font-bold mb-8 leading-relaxed">
                                             4月17日(金)の大会当日は、以下の通りクラブバスを運行いたします。
                                         </p>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                                             <div>
                                                 <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
                                                     行き（各駅発）
                                                 </h4>
-                                                <ul className="text-sm space-y-6 text-slate-700">
+                                                <ul className="text-sm space-y-4 text-slate-700">
                                                     <li className="flex flex-col sm:flex-row sm:items-center gap-2">
                                                         <span className="font-black text-[#001f3f] text-sm shrink-0">西武池袋線 飯能駅：</span>
                                                         <span className="font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded border border-slate-100 shadow-sm text-sm sm:inline-block">
@@ -132,7 +132,7 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                                 <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
                                                     帰り（クラブハウス発）
                                                 </h4>
-                                                <ul className="text-sm space-y-6 text-slate-700">
+                                                <ul className="text-sm space-y-4 text-slate-700">
                                                     <li className="flex flex-col sm:flex-row sm:items-center gap-2">
                                                         <span className="font-black text-[#001f3f] text-sm shrink-0">ゴルフ場発：</span>
                                                         <span className="font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded border border-slate-100 shadow-sm text-sm sm:inline-block">
@@ -140,6 +140,39 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                                         </span>
                                                     </li>
                                                 </ul>
+                                            </div>
+                                        </div>
+
+                                        <div className="border-t border-slate-100 pt-10">
+                                            <h4 className="font-black text-[#001f3f] mb-8 italic tracking-tight text-base flex items-center gap-2">
+                                                <span className="w-1.5 h-6 bg-red-600 rounded-full"></span>
+                                                クラブバス乗場のご案内
+                                            </h4>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                                <div className="space-y-4">
+                                                    <h5 className="font-black text-[#001f3f] text-sm border-l-4 border-[#001f3f] pl-3">西武池袋線 飯能駅</h5>
+                                                    <div className="border border-slate-100 rounded overflow-hidden shadow-sm">
+                                                        <img src="/images/st_0417.jpg" alt="飯能駅バス乗り場案内" className="w-full h-auto" />
+                                                        <div className="bg-slate-50 p-2 text-[10px] text-slate-400 text-center italic font-bold">
+                                                            飯能駅 バス乗り場案内図
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-4">
+                                                    <h5 className="font-black text-[#001f3f] text-sm border-l-4 border-[#001f3f] pl-3">JR川越線・八高線 高麗川駅</h5>
+                                                    <div className="bg-[#001f3f] p-6 rounded-sm text-white shadow-md relative overflow-hidden h-full">
+                                                        <div className="absolute top-0 right-0 p-2 opacity-10">
+                                                            <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7h-3v3h3V7z" /></svg>
+                                                        </div>
+                                                        <p className="text-sm font-bold leading-loose relative z-10">
+                                                            駅出口を出て左手側、<br />
+                                                            タクシー乗り場後方付近にてお待ちください。<br /><br />
+                                                            <span className="text-red-400">※バスが見えましたら手をあげてお知らせください。</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="mt-10 space-y-1 text-[10px] text-slate-400 font-bold italic">
