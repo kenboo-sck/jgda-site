@@ -100,45 +100,51 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                 <div className="rich-text-content mb-8">
                                     <h3>4. クラブバスの運行について</h3>
                                 </div>
-                                <div className="bg-red-50 border-l-4 border-red-600 p-6 shadow-sm rounded-r-md">
-                                    <div className="flex items-start gap-4">
-                                        <div className="bg-red-600 text-white p-2 rounded-full shrink-0">
-                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                            </svg>
+                                <div className="bg-white p-4">
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-black text-[#001f3f] mb-4 italic tracking-tight">
+                                            【4/17 クラブバスのご案内】
+                                        </h3>
+                                        <p className="text-sm text-slate-600 font-bold mb-8 leading-relaxed">
+                                            4月17日(金)の大会当日は、以下の通りクラブバスを運行いたします。
+                                        </p>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <div>
+                                                <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
+                                                    行き（各駅発）
+                                                </h4>
+                                                <ul className="text-sm space-y-4 text-slate-700">
+                                                    <li className="flex items-center gap-2">
+                                                        <span className="font-black text-[#001f3f] text-sm shrink-0">西武池袋線 飯能駅：</span>
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-sm">
+                                                            6:40 / 7:40 / 8:40
+                                                        </span>
+                                                    </li>
+                                                    <li className="flex items-center gap-2">
+                                                        <span className="font-black text-[#001f3f] text-sm shrink-0">JR川越線・八高線 高麗川駅：</span>
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-xs sm:text-sm">
+                                                            6:55頃 / 7:55頃 / 8:55頃
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
+                                                    帰り（クラブハウス発）
+                                                </h4>
+                                                <ul className="text-sm space-y-4 text-slate-700">
+                                                    <li className="flex items-center gap-2">
+                                                        <span className="font-black text-[#001f3f] text-sm shrink-0">ゴルフ場発：</span>
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-sm">
+                                                            14:30 / 15:30 / 16:30（最終）
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div className="flex-1">
-                                            <h3 className="text-lg font-black text-red-700 mb-2 italic tracking-tight">
-                                                【ギャラリーの皆様へ：4/17 クラブバスのご案内】
-                                            </h3>
-                                            <p className="text-sm text-red-900 font-bold mb-4 leading-relaxed">
-                                                4月17日(金)の大会当日は、以下の通りクラブバスを運行いたします.
-                                            </p>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div className="bg-white p-4 rounded border border-red-100 shadow-sm">
-                                                    <h4 className="font-black text-red-700 mb-2 border-b border-red-100 pb-1 flex items-center gap-2 italic text-xs uppercase">
-                                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
-                                                        行き（各駅発）
-                                                    </h4>
-                                                    <ul className="text-xs space-y-2 text-slate-700">
-                                                        <li><span className="inline-block w-20 font-bold text-slate-900 underline decoration-red-200">飯能駅発：</span>6:40 / 7:40 / 8:40</li>
-                                                        <li><span className="inline-block w-20 font-bold text-slate-900 underline decoration-red-200">高麗川駅発：</span>6:55頃 / 7:55頃 / 8:55頃</li>
-                                                    </ul>
-                                                </div>
-                                                <div className="bg-white p-4 rounded border border-red-100 shadow-sm">
-                                                    <h4 className="font-black text-red-700 mb-2 border-b border-red-100 pb-1 flex items-center gap-2 italic text-xs uppercase">
-                                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7M19 19l-7-7 7-7" /></svg>
-                                                        帰り（クラブハウス発）
-                                                    </h4>
-                                                    <ul className="text-xs space-y-2 text-slate-700">
-                                                        <li><span className="font-bold text-slate-900">14:30 / 15:30 / 16:30（最終）</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="mt-4 space-y-1 text-[10px] text-red-600 font-bold">
-                                                <p>※乗車定員に限りがございます。満席の際はご容赦ください。</p>
-                                                <p>※道路状況により到着が前後する場合がございます。</p>
-                                            </div>
+                                        <div className="mt-10 space-y-1 text-[10px] text-slate-400 font-bold italic">
+                                            <p>※乗車定員に限りがございます。満席の際はご容赦ください。</p>
+                                            <p>※道路状況により到着が前後する場合がございます。</p>
                                         </div>
                                     </div>
                                 </div>
