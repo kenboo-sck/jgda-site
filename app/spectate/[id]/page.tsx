@@ -113,16 +113,16 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                                 <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
                                                     行き（各駅発）
                                                 </h4>
-                                                <ul className="text-sm space-y-4 text-slate-700">
-                                                    <li className="flex items-center gap-2">
+                                                <ul className="text-sm space-y-6 text-slate-700">
+                                                    <li className="flex flex-col sm:flex-row sm:items-center gap-2">
                                                         <span className="font-black text-[#001f3f] text-sm shrink-0">西武池袋線 飯能駅：</span>
-                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-sm">
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded border border-slate-100 shadow-sm text-sm sm:inline-block">
                                                             6:40 / 7:40 / 8:40
                                                         </span>
                                                     </li>
-                                                    <li className="flex items-center gap-2">
-                                                        <span className="font-black text-[#001f3f] text-sm shrink-0">JR川越線・八高線 高麗川駅：</span>
-                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-xs sm:text-sm">
+                                                    <li className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                                                        <span className="font-black text-[#001f3f] text-sm shrink-0 leading-tight">JR川越線・八高線 高麗川駅：</span>
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded border border-slate-100 shadow-sm text-sm sm:inline-block">
                                                             6:55頃 / 7:55頃 / 8:55頃
                                                         </span>
                                                     </li>
@@ -132,10 +132,10 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                                 <h4 className="font-black text-[#001f3f] mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2 italic text-[10px] uppercase tracking-widest">
                                                     帰り（クラブハウス発）
                                                 </h4>
-                                                <ul className="text-sm space-y-4 text-slate-700">
-                                                    <li className="flex items-center gap-2">
+                                                <ul className="text-sm space-y-6 text-slate-700">
+                                                    <li className="flex flex-col sm:flex-row sm:items-center gap-2">
                                                         <span className="font-black text-[#001f3f] text-sm shrink-0">ゴルフ場発：</span>
-                                                        <span className="font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded border border-slate-100 shadow-sm text-sm">
+                                                        <span className="font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded border border-slate-100 shadow-sm text-sm sm:inline-block">
                                                             14:30 / 15:30 / 16:30（最終）
                                                         </span>
                                                     </li>
