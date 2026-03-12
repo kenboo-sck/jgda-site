@@ -106,7 +106,7 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                             【4/17 クラブバスのご案内】
                                         </h3>
                                         <p className="text-sm text-slate-600 font-bold mb-8 leading-relaxed">
-                                            4月17日(金)の大会当日は、以下の通りクラブバスを運行いたします。
+                                            4月17日(金)の大会当日は、以下の通り高麗川CCのクラブバスを運行いたします。
                                         </p>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                                             <div>
