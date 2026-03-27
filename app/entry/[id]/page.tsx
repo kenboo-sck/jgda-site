@@ -217,13 +217,82 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
 
 
 
-          {/* 残りのセクション */}
+          {/* Entry Terms ～ Practice Round */}
           {[
             { title: "Entry Terms", subTitle: "エントリー条件", content: tournament.entry_terms, icon: "rules" },
             { title: "Entry Status", subTitle: "エントリー状況", content: tournament.entry_status, icon: "status" },
             { title: "Yardage", subTitle: "ヤーデージ", content: tournament.yardage, icon: "rules" },
             { title: "Practice Round", subTitle: "練習ラウンドについて", content: tournament.practice_info, icon: "guidance" },
-            { title: "Prize Money", subTitle: "賞金", content: tournament.prize_money, icon: "prize" },
+          ].map((sec) => sec.content && (
+            <section key={sec.title} className="relative group">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href={`#icon-${sec.icon}`} /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">
+                    {sec.title}
+                  </h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">{sec.subTitle}</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+              <div className="rich-text-content pl-4 md:pl-16"
+                dangerouslySetInnerHTML={{ __html: sec.content }} />
+            </section>
+          ))}
+
+          {/* Prize Money + 賞金リスト */}
+          {(tournament.prize_money || (tournament.prize_list && tournament.prize_list.length > 0)) && (
+            <section className="relative group">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-prize" /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Prize Money</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">賞金</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+              <div className="pl-4 md:pl-16 space-y-8">
+                {tournament.prize_money && (
+                  <div className="rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: tournament.prize_money }} />
+                )}
+                {tournament.prize_list && tournament.prize_list.length > 0 && (
+                  <div>
+                    <h4 className="text-base font-black text-[#001f3f] mb-4">賞金リスト</h4>
+                    <div className="overflow-x-auto border border-slate-300 shadow-lg rounded-sm max-w-lg">
+                    <table className="w-full text-sm border-collapse bg-white">
+                      <thead>
+                        <tr className="bg-[#001f3f] text-white text-[10px] font-bold uppercase tracking-widest">
+                          <th className="py-3 px-6 text-left border-r border-white/10">順位</th>
+                          <th className="py-3 px-6 text-right">賞金額</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tournament.prize_list.map((item: any, index: number) => (
+                          <tr key={index} className={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${index === 0 ? 'bg-amber-50/40' : ''}`}>
+                            <td className={`py-3 px-6 font-bold ${index === 0 ? 'text-[#001f3f] text-base' : 'text-slate-700'}`}>
+                              {item.rank}
+                            </td>
+                            <td className={`py-3 px-6 text-right font-bold ${index === 0 ? 'text-red-600 text-base' : 'text-slate-800'}`}>
+                              {item.amount}円
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Spectating ～ Guidance */}
+          {[
             { title: "Spectating", subTitle: "ギャラリー観戦", content: tournament.spectate_info, icon: "spectate" },
             { title: "Rules", subTitle: "競技ルール", content: tournament.rules, icon: "rules" },
             { title: "Guidance", subTitle: "案内事項", content: tournament.guidance, icon: "guidance" }
