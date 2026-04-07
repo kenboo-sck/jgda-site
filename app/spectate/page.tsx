@@ -68,7 +68,7 @@ export default async function SpectatePage() {
                                         <div className="mb-6">
                                             <p className="text-red-600 text-[10px] font-black italic uppercase tracking-[0.2em] mb-2">{t.date}</p>
                                             <Link href={`/spectate/${t.id}`} className="group/link">
-                                                <h2 className="text-xl md:text-2xl font-black text-[#001f3f] italic uppercase tracking-tight leading-tight group-hover/link:text-red-600 transition-colors">
+                                                <h2 className="text-xl md:text-2xl font-black text-[#001f3f] italic tracking-tight leading-tight group-hover/link:text-red-600 transition-colors">
                                                     {t.title}
                                                 </h2>
                                             </Link>

@@ -65,7 +65,7 @@ export default function LatestVideos({ data }: { data: Video[] }) {
                             <p className="text-[9px] text-red-600 mb-2 font-black tracking-widest uppercase italic">
                                 {video.date ? new Date(video.date).toLocaleDateString('ja-JP').replace(/\//g, '.') : ''}
                             </p>
-                            <h3 className="text-[14px] font-bold leading-tight text-[#001f3f] group-hover:text-red-600 transition-colors line-clamp-2 italic uppercase tracking-tight">
+                            <h3 className="text-[14px] font-bold leading-tight text-[#001f3f] group-hover:text-red-600 transition-colors line-clamp-2 italic tracking-tight">
                                 {video.title}
                             </h3>
                         </a>

@@ -29,7 +29,7 @@ export default function TournamentEntryBanner() {
                             <span className="block text-sm md:text-lg font-bold tracking-widest text-slate-400 mb-1">
                                 藤井かすみステップジャンプツアー2026
                             </span>
-                            <span className="block text-2xl md:text-4xl lg:text-5xl font-black italic tracking-tighter uppercase leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-slate-400 drop-shadow-lg">
+                            <span className="block text-2xl md:text-4xl lg:text-5xl font-black italic tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-slate-400 drop-shadow-lg">
                                 高麗川カントリークラブカップ
                             </span>
                         </h2>

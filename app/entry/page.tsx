@@ -95,7 +95,7 @@ export default async function EntryListPage() {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-red-600 text-[10px] font-black italic uppercase tracking-widest">{t.date}</span>
                   </div>
-                  <h2 className="text-lg font-black text-[#001f3f] italic uppercase tracking-tight mb-4 line-clamp-2 group-hover:text-red-600 transition-colors">
+                  <h2 className="text-lg font-black text-[#001f3f] italic tracking-tight mb-4 line-clamp-2 group-hover:text-red-600 transition-colors">
                     {t.title}
                   </h2>
                   <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -145,7 +145,7 @@ export default async function EntryListPage() {
 
                   {/* タイトルと会場 */}
                   <div className="flex-1">
-                    <h3 className={`text-base md:text-lg font-black italic uppercase tracking-tight transition-colors line-clamp-1 text-[#001f3f] ${isLinkDisabled ? '' : 'group-hover:text-red-600'}`}>
+                    <h3 className={`text-base md:text-lg font-black italic tracking-tight transition-colors line-clamp-1 text-[#001f3f] ${isLinkDisabled ? '' : 'group-hover:text-red-600'}`}>
                       {t.title}
                     </h3>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 flex items-center gap-1">

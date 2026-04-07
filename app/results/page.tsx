@@ -130,7 +130,7 @@ export default async function ResultsListPage({ searchParams }: any) {
                     <p className="text-[10px] font-black text-red-600 uppercase tracking-[0.3em] mb-2 italic">
                       {t.date}
                     </p>
-                    <h2 className="text-xl md:text-2xl font-black text-[#001f3f] italic uppercase tracking-tight group-hover:text-red-600 transition-colors">
+                    <h2 className="text-xl md:text-2xl font-black text-[#001f3f] italic tracking-tight group-hover:text-red-600 transition-colors">
                       {t.title}
                     </h2>
                     <div className="flex flex-wrap items-center gap-4 mt-3">

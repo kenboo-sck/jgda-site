@@ -79,7 +79,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
             <Link href="/entry" className="text-slate-300 text-[10px] font-black tracking-[0.3em] uppercase italic mb-4 inline-block hover:text-white transition-colors">
               ← Back to Entry List
             </Link>
-            <h1 className="text-3xl md:text-6xl font-black italic tracking-tighter uppercase text-white leading-none">
+            <h1 className="text-3xl md:text-6xl font-black italic tracking-tighter text-white leading-none">
               {tournament.title}
             </h1>
           </div>
@@ -256,7 +256,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
               <div className="pl-4 md:pl-16 space-y-10">
                 {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
                 {tournament.pairing_file && (
-                  <div id="pairing-id-system" className="rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
+                  <div id="pairing-id-system" className="rich-text-content overflow-x-auto md:bg-slate-50 md:border md:border-slate-200 md:p-8 rounded-sm mb-6">
                     <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
                   </div>
                 )}

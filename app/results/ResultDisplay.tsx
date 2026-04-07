@@ -169,7 +169,7 @@ export default function ResultDisplay({ info, parRow: originalParRow, playerResu
               <div className="h-[1px] flex-1 bg-white/20"></div>
             </div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] mb-8 uppercase tracking-tighter italic">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] mb-8 tracking-tighter italic">
               {renderSafe(info.title)}
             </h1>
 
