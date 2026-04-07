@@ -38,9 +38,9 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
     contentId: id,
   }).catch(() => null);
 
-  // ステータス判定用のヘルパー（文字列、オブジェクト、配列のいずれにも対応）
+  // ステータス判定用のヘルパー（status と tournament_status の両方をチェック）
   const checkStatus = (target: string) => {
-    const s = tournament?.status;
+    const s = tournament?.status || tournament?.tournament_status;
     if (!s) return false;
     const check = (val: any) => (val?.id || val || "").toString().toLowerCase() === target;
     return Array.isArray(s) ? s.some(check) : check(s);
@@ -49,9 +49,9 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
   const isResults = checkStatus('results');
   const isEntry = tournament?.entry_active || checkStatus('entry');
 
-  // ステータスが 'results'（結果公開中）の場合は、エントリーページとしては表示させない（404にする）
-  // または、エントリー情報が空の場合も表示させない
-  if (!tournament || isResults || (!tournament.entry_active && !tournament.entry_guidelines)) {
+  // ステータスが 'results'（結果公開中）の場合でも、エントリーページを表示（アーカイブとして閲覧可能）
+  // 募集情報が全くない場合は404にする
+  if (!tournament || (!tournament.entry_active && !tournament.entry_guidelines && !tournament.pairing_file && !tournament.pairing_url)) {
     notFound();
   }
 
@@ -142,8 +142,8 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
                 <dd className="font-bold text-base">{tournament.entry_count || "---"}</dd>
               </div>
             </dl>
-            {/* ステータスがエントリー関連の時のみガイドラインを表示 */}
-            {tournament.entry_guidelines && tournament.status !== 'results' && (
+            {/* ステータスがエントリー関連の時のみガイドラインを表示（結果公開後は非表示） */}
+            {tournament.entry_guidelines && !isResults && (
               <div className="rich-text-content mt-8 bg-slate-50 p-6 md:p-10 rounded-sm border border-slate-100"
                 dangerouslySetInnerHTML={{ __html: tournament.entry_guidelines }} />
             )}
@@ -217,9 +217,70 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
 
 
 
-          {/* Entry Terms ～ Practice Round */}
+          {/* Entry Terms (ペアリング表示位置変更のため単独表示) */}
           {[
             { title: "Entry Terms", subTitle: "エントリー条件", content: tournament.entry_terms, icon: "rules" },
+          ].map((sec) => sec.content && (
+            <section key={sec.title} className="relative group">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href={`#icon-${sec.icon}`} /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">
+                    {sec.title}
+                  </h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">{sec.subTitle}</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+              <div className="rich-text-content pl-4 md:pl-16"
+                dangerouslySetInnerHTML={{ __html: sec.content }} />
+            </section>
+          ))}
+
+          {/* ペアリング (リッチテキスト表示対応) */}
+          {(tournament.pairing_url || tournament.pairing_file) && (
+            <section id="pairing" className="relative group scroll-mt-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-rules" /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Pairing / Start List</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
+              </div>
+
+              <div className="pl-4 md:pl-16 space-y-10">
+                {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
+                {tournament.pairing_file && (
+                  <div id="pairing-id-system" className="rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
+                    <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
+                  </div>
+                )}
+
+                {/* PDFダウンロード用リンク（あれば表示） */}
+                {tournament.pairing_url && (
+                  <div className="bg-[#001f3f] text-white p-8 rounded-sm">
+                    <div className="flex flex-col mb-4">
+                      <h3 className="text-xl font-black italic uppercase tracking-widest">Download PDF</h3>
+                      <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">PDF版のダウンロード</span>
+                    </div>
+                    <p className="text-slate-400 text-xs mb-6 font-bold uppercase tracking-widest">組合せ表が公開されました。下記よりダウンロードしてください。</p>
+                    <a href={tournament.pairing_url} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-red-600 hover:bg-white hover:text-[#001f3f] text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all">
+                      Download PDF →
+                    </a>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Entry Status ～ Practice Round */}
+          {[
             { title: "Entry Status", subTitle: "エントリー状況", content: tournament.entry_status, icon: "status" },
             { title: "Yardage", subTitle: "ヤーデージ", content: tournament.yardage, icon: "rules" },
             { title: "Practice Round", subTitle: "練習ラウンドについて", content: tournament.practice_info, icon: "guidance" },
@@ -315,45 +376,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
             </section>
           ))}
 
-          {/* ペアリング (リッチテキスト表示対応) */}
-          {(tournament.pairing_url || tournament.pairing_file) && (
-            <section id="pairing" className="relative group scroll-mt-20">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
-                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-rules" /></svg>
-                </div>
-                <div className="flex flex-col">
-                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Pairing / Start List</h3>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表 <span className="text-red-500 font-black text-xl animate-bounce">【最新版プログラム反映中】</span></span>
-                </div>
-                <div className="flex-1 h-[2px] bg-slate-100"></div>
-              </div>
 
-              <div className="pl-4 md:pl-16 space-y-10">
-                {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
-                {tournament.pairing_file && (
-                  <div className="pairing-card-system overflow-x-auto bg-pink-100 border-4 border-red-500 p-4 md:p-8 rounded-sm mb-6">
-                    <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
-                  </div>
-                )}
-
-                {/* PDFダウンロード用リンク（あれば表示） */}
-                {tournament.pairing_url && (
-                  <div className="bg-[#001f3f] text-white p-8 rounded-sm">
-                    <div className="flex flex-col mb-4">
-                      <h3 className="text-xl font-black italic uppercase tracking-widest">Download PDF</h3>
-                      <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">PDF版のダウンロード</span>
-                    </div>
-                    <p className="text-slate-400 text-xs mb-6 font-bold uppercase tracking-widest">組合せ表が公開されました。下記よりダウンロードしてください。</p>
-                    <a href={tournament.pairing_url} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 bg-red-600 hover:bg-white hover:text-[#001f3f] text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all">
-                      Download PDF →
-                    </a>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
 
           {/* スポンサーロゴ (メインエリアに移動して拡大) */}
           {tournament.sponsors && tournament.sponsors.length > 0 && (

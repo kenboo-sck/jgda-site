@@ -7,16 +7,9 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff !important;
+  color: #001f3f !important;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -219,107 +212,245 @@ body {
   border-right: none;
 }
 
-/* --- ペアリング情報のカード化システム (スマホ・タブレット用) --- */
-@media (max-width: 768px) {
-  body .pairing-card-system {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    overflow-x: visible !important;
-  }
 
-  body .pairing-card-system table {
-    display: block !important;
+/* --- ペアリング：徹底修正版 (白背景・紺ヘッダー完全固定) --- */
+#pairing-id-system.rich-text-content {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 10px 0 !important;
+}
+
+/* Excelのスタイルを強制リセット（文字色・背景色） */
+#pairing-id-system.rich-text-content table, 
+#pairing-id-system.rich-text-content tr, 
+#pairing-id-system.rich-text-content td,
+#pairing-id-system.rich-text-content th,
+#pairing-id-system.rich-text-content span,
+#pairing-id-system.rich-text-content div,
+#pairing-id-system.rich-text-content p {
+  background-color: transparent !important;
+  font-family: inherit !important;
+  line-height: 1.2 !important;
+}
+
+/* --- PC版デザイン (画像1ベースのレイアウトで白×紺) --- */
+@media (min-width: 769px) {
+  #pairing-id-system.rich-text-content table {
     width: 100% !important;
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  body .pairing-card-system table thead {
-    display: none !important;
-  }
-
-  body .pairing-card-system table tbody,
-  body .pairing-card-system table tbody tr,
-  body .pairing-card-system table tbody td {
-    display: block !important;
-    width: 100% !important;
-  }
-
-  /* 1行目（項目名など）を非表示にする */
-  body .pairing-card-system table tbody tr:first-child {
-    display: none !important;
-  }
-
-  body .pairing-card-system table tbody tr {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin-bottom: 2.5rem !important; 
-    border: 3.5px solid #001f3f !important;
-    border-radius: 12px !important;
+    display: table !important;
     background-color: #ffffff !important;
-    overflow: hidden !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-    padding: 0 !important;
+    border: 2px solid #001f3f !important;
+    margin-bottom: 3rem !important;
+    border-collapse: collapse !important;
   }
 
-  /* どんな行であっても背景を白、文字を濃紺でリセット（最優先設定） */
-  body .pairing-card-system table tbody tr td:nth-child(n) {
-    background-color: #ffffff !important;
-    color: #001f3f !important;
-    border: none !important;
-    padding: 12px 5px !important;
-    min-height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* 組番号と時間のヘッダー */
-  body .pairing-card-system table tbody tr td:nth-child(1),
-  body .pairing-card-system table tbody tr td:nth-child(2) {
+  /* 一番上の見出し行 (OUT / INなど) */
+  #pairing-id-system.rich-text-content tr:first-child td,
+  #pairing-id-system.rich-text-content th {
     background-color: #001f3f !important;
     color: #ffffff !important;
     font-weight: 900 !important;
     font-style: italic !important;
-    min-height: 60px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 1.25rem 1rem !important;
+    border: 1px solid #001f3f !important;
   }
 
-  body .pairing-card-system table tbody tr td:nth-child(1) {
-    width: 25% !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.2) !important;
-    font-size: 1.1rem !important;
+  #pairing-id-system.rich-text-content tr:first-child td *,
+  #pairing-id-system.rich-text-content th * {
+    color: #ffffff !important;
   }
 
-  body .pairing-card-system table tbody tr td:nth-child(2) {
-    width: 75% !important;
-    font-size: 1.4rem !important;
-    justify-content: flex-end !important;
-    padding-right: 20px !important;
-  }
-
-  /* 選手名のエリア（3〜6列目のみ表示） */
-  body .pairing-card-system table tbody tr td:nth-child(3),
-  body .pairing-card-system table tbody tr td:nth-child(4),
-  body .pairing-card-system table tbody tr td:nth-child(5),
-  body .pairing-card-system table tbody tr td:nth-child(6) {
-    width: 50% !important;
+  #pairing-id-system.rich-text-content td {
+    padding: 1.25rem 0.5rem !important;
     border-bottom: 1px solid #e2e8f0 !important;
     border-right: 1px solid #e2e8f0 !important;
-    font-size: 14px !important;
-    font-weight: 800 !important;
-    background-color: #ffffff !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
     color: #001f3f !important;
   }
 
-  body .pairing-card-system table tbody tr td:nth-child(even):not(:nth-child(2)) {
+  /* 組ごと（行ごと）に背景を僅かに変える（ストライプ効果） */
+  #pairing-id-system.rich-text-content tr:nth-child(odd) td {
+    background-color: #ffffff !important; /* 奇数組は白 */
+  }
+
+  #pairing-id-system.rich-text-content tr:nth-child(even) td {
+    background-color: #f8fafc !important; /* 偶数組は極薄いグレー */
+  }
+
+  /* Excel由来のタグの背景色を透過させ、行のストライプ色を活かす */
+  #pairing-id-system.rich-text-content td * {
+    color: #001f3f !important;
+    background-color: transparent !important;
+  }
+
+  #pairing-id-system.rich-text-content td:last-child {
     border-right: none !important;
   }
 
-  /* はみ出しデータ（横並び時）の非表示 */
-  body .pairing-card-system table tbody tr td:nth-child(n+7) {
-    display: none !important;
+  /* --- OUT / IN の区切り行 (PC版) --- */
+  #pairing-id-system.rich-text-content tr:has(> td:only-child) td,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child) th {
+    background-color: #001f3f !important; /* 紺色背景 */
+    color: #ffffff !important; /* 白文字 */
+    font-size: 1.4rem !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    letter-spacing: 0.3em !important;
+    text-align: center !important;
+    padding: 1.25rem 1rem !important;
+    border: 1px solid #001f3f !important;
+  }
+
+  /* OUT/INの中にあるタグの文字も白に強制 */
+  #pairing-id-system.rich-text-content tr:has(> td:only-child) td *,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child) th * {
+    color: #ffffff !important;
   }
 }
+
+/* --- スマホ版デザイン (画像2完全再現) --- */
+@media (max-width: 768px) {
+  #pairing-id-system.rich-text-content table,
+  #pairing-id-system.rich-text-content tbody {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* PC用のヘッダー行は非表示 */
+  #pairing-id-system.rich-text-content tr:first-child {
+    display: none !important;
+  }
+
+  /* カード本体の構造 (Gridで堅牢に組む：横2列) */
+  #pairing-id-system.rich-text-content tr {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    background-color: #ffffff !important;
+    border: 1px solid #001f3f !important;
+    border-radius: 8px !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+  }
+
+  /* 各セルの基本設定 */
+  #pairing-id-system.rich-text-content td {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important; /* パディングが幅に影響しないよう固定 */
+  }
+
+  /* カード上部：ヘッダー（組 & 時間） */
+  #pairing-id-system.rich-text-content tr td:nth-child(1),
+  #pairing-id-system.rich-text-content tr td:nth-child(2) {
+    height: 50px !important;
+    background-color: #001f3f !important;  /* 紺色背景 */
+    color: #ffffff !important;             /* 白文字 */
+    font-weight: 900 !important;
+    font-style: italic !important;
+  }
+
+  #pairing-id-system.rich-text-content tr td:nth-child(1) *,
+  #pairing-id-system.rich-text-content tr td:nth-child(2) * {
+    color: #ffffff !important; 
+    background-color: transparent !important;
+  }
+
+  #pairing-id-system.rich-text-content tr td:nth-child(1) { 
+    justify-content: flex-start !important; 
+    padding-left: 20px !important;
+    font-size: 1.1rem !important;
+  }
+
+  #pairing-id-system.rich-text-content tr td:nth-child(2) { 
+    justify-content: flex-end !important; 
+    padding-right: 20px !important;
+    font-size: 1.3rem !important;
+  }
+
+  /* カード下部：選手名（白背景で2×2のグリッド配置） */
+  #pairing-id-system.rich-text-content tr td:nth-child(n+3) {
+    min-height: 50px !important;
+    background-color: #ffffff !important;  /* 絶対に白背景 */
+    color: #001f3f !important;             /* 絶対に紺文字 */
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+    border-top: 1px solid #e2e8f0 !important; 
+    padding: 10px 5px !important;
+  }
+
+  /* 選手の中にあるタグ（Excel等の残骸）も全部紺文字・白背景強制 */
+  #pairing-id-system.rich-text-content tr td:nth-child(n+3) * {
+    color: #001f3f !important;
+    background-color: #ffffff !important;
+  }
+
+  /* 左側の選手(3番目、5番目)と右側の選手(4番目、6番目)の間を区切る線 */
+  #pairing-id-system.rich-text-content tr td:nth-child(odd):nth-child(n+3) {
+    border-right: 1px solid #e2e8f0 !important;
+  }
+
+  /* --- OUT / IN の区切り行（スマホ用） --- */
+  /* --- OUT / IN の区切り行（スマホ用・セパレーターバッジ） --- */
+  /* 各組のカードと明確に区別するため、ベタ塗りをやめて「ピル型バッジ＋水平線」のデザインにする */
+  #pairing-id-system.rich-text-content tr:has(> td:only-child),
+  #pairing-id-system.rich-text-content tr:has(> th:only-child) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important; /* 行の背景は透明に */
+    border: none !important;
+    margin: 4rem 0 2rem 0 !important; /* 余白を大きく取る */
+    box-shadow: none !important;
+    position: relative !important;
+  }
+
+  /* 最初の行の場合は上マージンを減らす */
+  #pairing-id-system.rich-text-content tr:first-child:has(> td:only-child),
+  #pairing-id-system.rich-text-content tr:first-child:has(> th:only-child) {
+    margin-top: 1rem !important;
+  }
+
+  /* バッジの左右に広がる水平線（リッチな区切り線） */
+  #pairing-id-system.rich-text-content tr:has(> td:only-child)::before,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child)::before,
+  #pairing-id-system.rich-text-content tr:has(> td:only-child)::after,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child)::after {
+    content: "" !important;
+    flex: 1 !important;
+    height: 2px !important;
+    background-color: #001f3f !important;
+    opacity: 0.2 !important;
+  }
+
+  /* 中央のピル型バッジ（OUT / IN） */
+  #pairing-id-system.rich-text-content tr:has(> td:only-child) td,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child) th {
+    width: auto !important; /* 横幅は文字サイズに合わせる */
+    background-color: #001f3f !important; /* 紺色背景 */
+    color: #ffffff !important; /* 白文字 */
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 1.3rem !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    letter-spacing: 0.2em !important;
+    padding: 10px 30px !important; /* 左右を丸くするためパディング調整 */
+    margin: 0 15px !important; /* 左右の線との間に隙間を作る */
+    border-radius: 9999px !important; /* 完全な丸角（ピル・バッジ型） */
+    box-shadow: 0 4px 12px rgba(0, 31, 63, 0.25) !important;
+  }
+
+  #pairing-id-system.rich-text-content tr:has(> td:only-child) td *,
+  #pairing-id-system.rich-text-content tr:has(> th:only-child) th * {
+    color: #ffffff !important;
+    background-color: transparent !important;
+  }
+}
+

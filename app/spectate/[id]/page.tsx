@@ -99,11 +99,11 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                             <div className="mb-20">
                                 <h3 className="text-xl font-black italic text-[#001f3f] uppercase tracking-tight border-l-8 border-red-600 pl-4 mb-8">
                                     Pairing / Start List
-                                    <span className="block text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表 <span className="text-red-500 font-black">(最新版反映テスト)</span></span>
+                                    <span className="block text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
                                 </h3>
                                 {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
                                 {tournament.pairing_file && (
-                                    <div className="pairing-card-system overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-slate-300 [&_th]:p-2 [&_th]:bg-slate-100 [&_td]:border [&_td]:border-slate-300 [&_td]:p-2">
+                                    <div id="pairing-id-system" className="rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
                                         <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
                                     </div>
                                 )}
