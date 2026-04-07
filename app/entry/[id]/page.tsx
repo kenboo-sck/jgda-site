@@ -315,18 +315,43 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
             </section>
           ))}
 
-          {/* ペアリング */}
-          {tournament.pairing_url && (
-            <section className="bg-[#001f3f] text-white p-8 rounded-sm">
-              <div className="flex flex-col mb-4">
-                <h3 className="text-xl font-black italic uppercase tracking-widest">Pairing / Start List</h3>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
+          {/* ペアリング (リッチテキスト表示対応) */}
+          {(tournament.pairing_url || tournament.pairing_file) && (
+            <section id="pairing" className="relative group scroll-mt-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-[#001f3f] text-white flex items-center justify-center rounded-sm transform -skew-x-12 group-hover:bg-red-600 transition-colors">
+                  <svg className="w-6 h-6 transform skew-x-12"><use href="#icon-rules" /></svg>
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Pairing / Start List</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
+                </div>
+                <div className="flex-1 h-[2px] bg-slate-100"></div>
               </div>
-              <p className="text-slate-400 text-xs mb-6 font-bold uppercase tracking-widest">組合せ表が公開されました。下記よりダウンロードしてください。</p>
-              <a href={tournament.pairing_url} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-red-600 hover:bg-white hover:text-[#001f3f] text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all">
-                Download PDF →
-              </a>
+
+              <div className="pl-4 md:pl-16 space-y-10">
+                {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
+                {tournament.pairing_file && (
+                  <div className="rich-text-content overflow-x-auto bg-white border border-slate-200 p-4 md:p-8 shadow-sm rounded-sm">
+                    <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
+                  </div>
+                )}
+
+                {/* PDFダウンロード用リンク（あれば表示） */}
+                {tournament.pairing_url && (
+                  <div className="bg-[#001f3f] text-white p-8 rounded-sm">
+                    <div className="flex flex-col mb-4">
+                      <h3 className="text-xl font-black italic uppercase tracking-widest">Download PDF</h3>
+                      <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">PDF版のダウンロード</span>
+                    </div>
+                    <p className="text-slate-400 text-xs mb-6 font-bold uppercase tracking-widest">組合せ表が公開されました。下記よりダウンロードしてください。</p>
+                    <a href={tournament.pairing_url} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-red-600 hover:bg-white hover:text-[#001f3f] text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all">
+                      Download PDF →
+                    </a>
+                  </div>
+                )}
+              </div>
             </section>
           )}
 

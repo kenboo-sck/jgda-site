@@ -93,6 +93,27 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                         <div className="rich-text-content mb-12">
                             <div dangerouslySetInnerHTML={{ __html: tournament.gallery_page_info }} />
                         </div>
+                        
+                        {/* ペアリング */}
+                        {(tournament.pairing_file || tournament.pairing_url) && (
+                            <div className="mb-20">
+                                <h3 className="text-xl font-black italic text-[#001f3f] uppercase tracking-tight border-l-8 border-red-600 pl-4 mb-8">
+                                    Pairing / Start List
+                                    <span className="block text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
+                                </h3>
+                                {tournament.pairing_file && (
+                                    <div className="rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
+                                        <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
+                                    </div>
+                                )}
+                                {tournament.pairing_url && (
+                                    <a href={tournament.pairing_url} target="_blank" rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-3 bg-[#001f3f] hover:bg-red-600 text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all shadow-lg text-sm">
+                                        Download PDF →
+                                    </a>
+                                )}
+                            </div>
+                        )}
 
                         {/* クラブバスのご案内 (Notice)  */}
                         {(id === '4w89jqxpnb' || tournament.venue?.includes('高麗川カントリークラブ')) && (
