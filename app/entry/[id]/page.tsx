@@ -332,7 +332,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
               <div className="pl-4 md:pl-16 space-y-10">
                 {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
                 {tournament.pairing_file && (
-                  <div className="rich-text-content overflow-x-auto bg-white border border-slate-200 p-4 md:p-8 shadow-sm rounded-sm">
+                  <div className="pairing-table-wrapper rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
                     <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
                   </div>
                 )}

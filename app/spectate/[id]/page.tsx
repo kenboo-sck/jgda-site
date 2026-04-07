@@ -102,7 +102,7 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                                     <span className="block text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
                                 </h3>
                                 {tournament.pairing_file && (
-                                    <div className="rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
+                                    <div className="pairing-table-wrapper rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
                                         <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
                                     </div>
                                 )}

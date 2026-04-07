@@ -218,3 +218,103 @@ body {
 .rich-text-content th:last-child {
   border-right: none;
 }
+
+/* --- ペアリング情報のカード化 (スマホ用) --- */
+@media (max-width: 640px) {
+  .pairing-table-wrapper {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    overflow-x: visible !important;
+  }
+
+  .pairing-table-wrapper table,
+  .pairing-table-wrapper tbody,
+  .pairing-table-wrapper tr,
+  .pairing-table-wrapper td {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* テーブルのヘッダー行（#やTimeなどの項目名）やOUT/INタイトルの行を隠す */
+  .pairing-table-wrapper thead,
+  .pairing-table-wrapper tr:first-child {
+    display: none !important;
+  }
+
+  .pairing-table-wrapper tr {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 2rem !important;
+    border: 2px solid #001f3f !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* 1番目のセル（組番号）: カードの左上ヘッダー */
+  .pairing-table-wrapper td:nth-child(1) {
+    width: 25% !important;
+    background-color: #001f3f !important;
+    color: #fff !important;
+    font-weight: 900 !important;
+    font-size: 1.1rem !important;
+    font-style: italic !important;
+    padding: 12px 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* 2番目のセル（スタート時間）: カードの右上ヘッダー */
+  .pairing-table-wrapper td:nth-child(2) {
+    width: 75% !important;
+    background-color: #001f3f !important;
+    color: #fff !important;
+    font-weight: 900 !important;
+    font-size: 1.3rem !important;
+    font-style: italic !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: none !important;
+  }
+
+  /* 3〜6番目のセル（選手名）: 2列グリッドで表示 */
+  /* ExcelからOUT/IN一緒に貼り付けてしまった場合に備え、n+3 すべてを対象とする */
+  .pairing-table-wrapper td:nth-child(n+3) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 50% !important;
+    min-height: 55px !important;
+    padding: 10px 5px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    border-right: 1px solid #f1f5f9 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #334155 !important;
+    background-color: #ffffff !important;
+  }
+
+  /* 2列目（右側の列）の右ボーダーを消す */
+  .pairing-table-wrapper td:nth-child(even) {
+    border-right: none !important;
+  }
+
+  /* 最後の行のボーダーを調整 */
+  .pairing-table-wrapper td:nth-child(n+5) {
+    border-bottom: none !important;
+  }
+
+  /* 万が一OUT/INが同じ行にある場合（12列などの場合）の調整 */
+  .pairing-table-wrapper td:nth-child(n+7) {
+    display: none !important; /* はみ出したデータは非表示にする（縦に並べて貼り付けを推奨） */
+  }
+}
