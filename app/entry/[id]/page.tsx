@@ -324,7 +324,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
                 </div>
                 <div className="flex flex-col">
                   <h3 className="text-2xl font-black italic text-[#001f3f] uppercase tracking-tight">Pairing / Start List</h3>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表</span>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">組合せ表 <span className="text-red-500 font-black text-xl animate-bounce">【最新版プログラム反映中】</span></span>
                 </div>
                 <div className="flex-1 h-[2px] bg-slate-100"></div>
               </div>
@@ -332,7 +332,7 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
               <div className="pl-4 md:pl-16 space-y-10">
                 {/* リッチテキストによるテーブル表示（Excel等の貼り付けに対応） */}
                 {tournament.pairing_file && (
-                  <div className="pairing-table-wrapper rich-text-content overflow-x-auto bg-slate-50 border border-slate-200 p-4 md:p-8 rounded-sm mb-6">
+                  <div className="pairing-card-system overflow-x-auto bg-pink-100 border-4 border-red-500 p-4 md:p-8 rounded-sm mb-6">
                     <div dangerouslySetInnerHTML={{ __html: tournament.pairing_file }} />
                   </div>
                 )}

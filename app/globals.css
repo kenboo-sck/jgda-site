@@ -188,8 +188,8 @@ body {
   display: inline-block;
 }
 
-/* 偶数行に色をつけて読みやすくする（ゼブラ柄） */
-.rich-text-content tr:nth-child(even) td {
+/* 偶数行に色をつけて読みやすくする（ゼブラ柄）ペアリングは除外 */
+.rich-text-content:not(.pairing-card-system) tr:nth-child(even) td {
   background-color: #f8fafc !important;
 }
 
@@ -219,102 +219,107 @@ body {
   border-right: none;
 }
 
-/* --- ペアリング情報のカード化 (スマホ用) --- */
-@media (max-width: 640px) {
-  .pairing-table-wrapper {
+/* --- ペアリング情報のカード化システム (スマホ・タブレット用) --- */
+@media (max-width: 768px) {
+  body .pairing-card-system {
     background-color: transparent !important;
     border: none !important;
     padding: 0 !important;
     overflow-x: visible !important;
   }
 
-  .pairing-table-wrapper table,
-  .pairing-table-wrapper tbody,
-  .pairing-table-wrapper tr,
-  .pairing-table-wrapper td {
+  body .pairing-card-system table {
     display: block !important;
     width: 100% !important;
-    box-sizing: border-box !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
-  /* テーブルのヘッダー行（#やTimeなどの項目名）やOUT/INタイトルの行を隠す */
-  .pairing-table-wrapper thead,
-  .pairing-table-wrapper tr:first-child {
+  body .pairing-card-system table thead {
     display: none !important;
   }
 
-  .pairing-table-wrapper tr {
+  body .pairing-card-system table tbody,
+  body .pairing-card-system table tbody tr,
+  body .pairing-card-system table tbody td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* 1行目（項目名など）を非表示にする */
+  body .pairing-card-system table tbody tr:first-child {
+    display: none !important;
+  }
+
+  body .pairing-card-system table tbody tr {
     display: flex !important;
     flex-wrap: wrap !important;
-    margin-bottom: 2rem !important;
-    border: 2px solid #001f3f !important;
-    border-radius: 8px !important;
-    background: #fff !important;
-    overflow: hidden !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  /* 1番目のセル（組番号）: カードの左上ヘッダー */
-  .pairing-table-wrapper td:nth-child(1) {
-    width: 25% !important;
-    background-color: #001f3f !important;
-    color: #fff !important;
-    font-weight: 900 !important;
-    font-size: 1.1rem !important;
-    font-style: italic !important;
-    padding: 12px 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
-  }
-
-  /* 2番目のセル（スタート時間）: カードの右上ヘッダー */
-  .pairing-table-wrapper td:nth-child(2) {
-    width: 75% !important;
-    background-color: #001f3f !important;
-    color: #fff !important;
-    font-weight: 900 !important;
-    font-size: 1.3rem !important;
-    font-style: italic !important;
-    padding: 12px 20px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-right: none !important;
-  }
-
-  /* 3〜6番目のセル（選手名）: 2列グリッドで表示 */
-  /* ExcelからOUT/IN一緒に貼り付けてしまった場合に備え、n+3 すべてを対象とする */
-  .pairing-table-wrapper td:nth-child(n+3) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 50% !important;
-    min-height: 55px !important;
-    padding: 10px 5px !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-    border-right: 1px solid #f1f5f9 !important;
-    font-size: 13px !important;
-    font-weight: 800 !important;
-    color: #334155 !important;
+    margin-bottom: 2.5rem !important; 
+    border: 3.5px solid #001f3f !important;
+    border-radius: 12px !important;
     background-color: #ffffff !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    padding: 0 !important;
   }
 
-  /* 2列目（右側の列）の右ボーダーを消す */
-  .pairing-table-wrapper td:nth-child(even) {
+  /* どんな行であっても背景を白、文字を濃紺でリセット（最優先設定） */
+  body .pairing-card-system table tbody tr td:nth-child(n) {
+    background-color: #ffffff !important;
+    color: #001f3f !important;
+    border: none !important;
+    padding: 12px 5px !important;
+    min-height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 組番号と時間のヘッダー */
+  body .pairing-card-system table tbody tr td:nth-child(1),
+  body .pairing-card-system table tbody tr td:nth-child(2) {
+    background-color: #001f3f !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    min-height: 60px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  body .pairing-card-system table tbody tr td:nth-child(1) {
+    width: 25% !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-size: 1.1rem !important;
+  }
+
+  body .pairing-card-system table tbody tr td:nth-child(2) {
+    width: 75% !important;
+    font-size: 1.4rem !important;
+    justify-content: flex-end !important;
+    padding-right: 20px !important;
+  }
+
+  /* 選手名のエリア（3〜6列目のみ表示） */
+  body .pairing-card-system table tbody tr td:nth-child(3),
+  body .pairing-card-system table tbody tr td:nth-child(4),
+  body .pairing-card-system table tbody tr td:nth-child(5),
+  body .pairing-card-system table tbody tr td:nth-child(6) {
+    width: 50% !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    border-right: 1px solid #e2e8f0 !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    background-color: #ffffff !important;
+    color: #001f3f !important;
+  }
+
+  body .pairing-card-system table tbody tr td:nth-child(even):not(:nth-child(2)) {
     border-right: none !important;
   }
 
-  /* 最後の行のボーダーを調整 */
-  .pairing-table-wrapper td:nth-child(n+5) {
-    border-bottom: none !important;
-  }
-
-  /* 万が一OUT/INが同じ行にある場合（12列などの場合）の調整 */
-  .pairing-table-wrapper td:nth-child(n+7) {
-    display: none !important; /* はみ出したデータは非表示にする（縦に並べて貼り付けを推奨） */
+  /* はみ出しデータ（横並び時）の非表示 */
+  body .pairing-card-system table tbody tr td:nth-child(n+7) {
+    display: none !important;
   }
 }
