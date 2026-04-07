@@ -316,6 +316,8 @@ body {
   #pairing-id-system.rich-text-content tbody {
     display: block !important;
     width: 100% !important;
+    border: none !important; /* テーブル全体を囲う不要な枠線を削除 */
+    background: transparent !important;
   }
 
   /* PC用のヘッダー行は非表示 */
