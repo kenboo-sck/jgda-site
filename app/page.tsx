@@ -10,6 +10,9 @@ import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 
+import banner01 from '@/public/images/bn-01.jpg';
+import banner02 from '@/public/images/bn-02.jpg';
+
 export const revalidate = 3600;
 
 export default async function Home() {
@@ -150,6 +153,76 @@ export default async function Home() {
   return (
     <main className="bg-white min-h-screen font-sans text-[#333] pb-32">
       <TopSlider data={sliderRes.contents} />
+
+      {/* ライブ配信バナーエリア */}
+      <section className="bg-white pt-10 pb-4">
+        <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
+          <div className="relative bg-[#001f3f] rounded-sm shadow-2xl p-6 md:p-8 border-l-4 border-red-600 overflow-hidden group/container">
+            {/* background patterns */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 20px)' }}></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/30 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+            
+            <div className="relative w-full flex flex-col gap-8 lg:gap-10 items-center z-10">
+              {/* タイトル領域 */}
+              <div className="w-full text-center flex flex-col items-center">
+                <div className="inline-flex items-center gap-2 mb-3 justify-center">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                  </span>
+                  <span className="text-red-400 font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase">Special Live Streaming</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-widest drop-shadow-md leading-tight italic mb-4 md:mb-6">
+                  <span className="block text-slate-400 text-xs md:text-sm lg:text-base font-bold tracking-[0.2em] mb-2.5 not-italic">高麗川カントリークラブカップ</span>
+                  高麗川大会 <span className="text-red-500">ライブ配信</span>はこちら！
+                </h2>
+
+                {/* 日付表示バッジ */}
+                <div className="inline-flex relative mt-1 md:mt-2 mb-4 group">
+                  {/* ネオン発光効果（背景） */}
+                  <div className="absolute inset-0 bg-red-600/40 blur-lg rounded-full animate-pulse group-hover:bg-red-600/60 transition-colors duration-500"></div>
+                  
+                  {/* バッジ本体 */}
+                  <div className="relative flex items-center bg-slate-900 border border-red-500/50 px-5 md:px-7 py-2.5 md:py-3 rounded-full shadow-[0_0_20px_rgba(239,68,68,0.3)] backdrop-blur-md">
+                    <div className="flex items-center gap-3 md:gap-4">
+                      {/* アイコン */}
+                      <div className="bg-red-500/20 p-2 rounded-full hidden sm:block">
+                        <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      
+                      {/* テキスト */}
+                      <div className="flex flex-col text-center sm:text-left">
+                        <span className="text-slate-400 font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase leading-none mb-1 md:mb-1.5">
+                          Date & Time
+                        </span>
+                        <div className="flex items-baseline justify-center sm:justify-start gap-2">
+                          <span className="text-white text-base md:text-xl font-bold tracking-widest leading-none">
+                            2026年4月17日<span className="text-red-400 font-medium ml-1">（金）</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* バナー画像 */}
+              <div className="w-full flex flex-col md:flex-row gap-5 lg:gap-8">
+                <Link href="https://video.unext.jp/livedetail/LIV0000014088" target="_blank" rel="noopener noreferrer" className="flex-1 w-full block overflow-hidden rounded shadow-xl hover:shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all duration-300 border border-white/10 group bg-slate-900 border-b-2 border-b-red-600/50 hover:border-b-red-500">
+                  <Image src={banner01} alt="U-NEXT Live" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100" />
+                </Link>
+                <Link href="https://player.yourlive.jvckenwood.com/jgda/20260417_jgda.html" target="_blank" rel="noopener noreferrer" className="flex-1 w-full block overflow-hidden rounded shadow-xl hover:shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all duration-300 border border-white/10 group bg-slate-900 border-b-2 border-b-red-600/50 hover:border-b-red-500">
+                  <Image src={banner02} alt="JVC KENWOOD Live" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <TournamentEntryBanner />
 
       <section className="bg-white py-24">

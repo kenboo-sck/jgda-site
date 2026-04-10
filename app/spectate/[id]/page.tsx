@@ -93,7 +93,7 @@ export default async function SpectateDetailPage({ params }: { params: Promise<{
                         <div className="rich-text-content mb-12">
                             <div dangerouslySetInnerHTML={{ __html: tournament.gallery_page_info }} />
                         </div>
-                        
+
                         {/* ペアリング */}
                         {(tournament.pairing_file || tournament.pairing_url) && (
                             <div className="mb-20">
