@@ -76,7 +76,7 @@ export default function TopSlider({ data }: { data: SliderItem[] }) {
 
               {/* テキストエリア */}
               <div className="mt-6 px-4 md:px-12 text-center md:text-left">
-                <h3 className="text-xl md:text-4xl font-black italic uppercase text-white tracking-tighter leading-tight group-hover:text-red-600 transition-colors">
+                <h3 className="text-xl md:text-4xl font-black italic text-white tracking-tighter leading-tight group-hover:text-red-600 transition-colors">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-slate-300 text-sm md:text-lg font-medium leading-relaxed max-w-3xl">
