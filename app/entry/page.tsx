@@ -33,17 +33,15 @@ export default async function EntryListPage() {
     return !isResults && !isUpcoming && (t.entry_active || t.entry_guidelines);
   });
 
-  // 2. スケジュール用（結果公開済み以外の大会を抽出し、開催が近い順にソート）
+  // 2. スケジュール用（今年度の大会を抽出。終了したものも含めてスケジュールに掲載する）
+  const currentYear = new Date().getFullYear().toString();
   const scheduleTournaments = allTournaments
-    .filter((t: any) => {
-      const checkMatch = (s: any) => {
-        const id = (s?.id || "").toString().toLowerCase();
-        const val = (s?.value || s || "").toString().toLowerCase();
-        return id === 'results' || val === 'results';
-      };
-      return !(Array.isArray(t.status) ? t.status.some(checkMatch) : checkMatch(t.status));
-    })
-    .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .filter((t: any) => t.date?.includes(currentYear))
+    .sort((a: any, b: any) => {
+      const db = new Date(b.date?.replace(/\./g, '/'));
+      const da = new Date(a.date?.replace(/\./g, '/'));
+      return da.getTime() - db.getTime();
+    });
 
   const getStatusLabel = (t: any) => {
     const checkResults = (s: any) => (s?.id || s || "").toString().toLowerCase() === 'results';
