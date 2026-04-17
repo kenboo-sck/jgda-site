@@ -11,6 +11,7 @@ export function getCsvData(fileName: string) {
     columns: true, // 1行目を見出しとして扱う
     skip_empty_lines: true,
     relax_column_count: true,
+    bom: true, // BOMを自動的に処理する
   });
   
   return records;
