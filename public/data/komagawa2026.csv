@@ -1,4 +1,4 @@
-player_id,rank,name,h1,h2,h3,h4,h5,h6,h7,h8,h9,ou,h10,h11,h12,h13,h14,h15,h16,h17,h18,in,oal,score
+player_id,rank,name,h1,h2,h3,h4,h5,h6,h7,h8,h9,out,h10,h11,h12,h13,h14,h15,h16,h17,h18,in,total,score
 master,PAR,PAR,4,4,5,3,4,4,3,4,5,36,4,3,4,5,4,4,3,5,4,36,72,
 kuwamura-miho,1,桑村 美穂,4,3,5,3,4,4,3,4,4,34,4,3,4,4,3,4,2,4,4,32,66,-6
 yabushita-mai,2,薮下 真衣,3,5,5,3,4,4,3,3,4,34,4,3,4,4,4,5,4,4,3,35,69,-3
