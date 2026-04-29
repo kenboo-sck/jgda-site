@@ -82,6 +82,19 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
             <h1 className="text-3xl md:text-6xl font-black italic tracking-tighter text-white leading-none">
               {tournament.title}
             </h1>
+
+            {/* ギャラリー観戦用リンクボタン */}
+            {tournament.gallery_page_info && (
+              <div className="mt-8">
+                <Link
+                  href={`/spectate/${id}`}
+                  className="inline-flex items-center gap-3 bg-red-600 hover:bg-white hover:text-[#001f3f] text-white px-8 py-4 font-black italic uppercase tracking-widest transition-all shadow-2xl group"
+                >
+                  ギャラリー観戦希望者はこちら！
+                  <span className="group-hover:translate-x-2 transition-transform">→</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
