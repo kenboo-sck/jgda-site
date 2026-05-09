@@ -431,6 +431,46 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
               </div>
             </section>
           )}
+
+          {/* テクニカルサポーター */}
+          {tournament.technical_supporters && tournament.technical_supporters.length > 0 && (
+            <section className="pt-16 border-t border-slate-100 mt-16">
+              <div className="flex items-center gap-4 mb-10">
+                <div className="flex flex-col">
+                  <h3 className="text-xl font-black italic text-[#001f3f] uppercase tracking-tight">Technical Supporters</h3>
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-1">テクニカルサポーター</span>
+                </div>
+                <span className="flex-1 h-[1px] bg-slate-200"></span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10">
+                {tournament.technical_supporters.map((s: any, i: number) => {
+                  const content = (
+                    <div className="w-full h-full flex items-center justify-center p-2 transition-all group/supporter">
+                      {s.logo?.url && (
+                        <img
+                          src={s.logo.url}
+                          alt=""
+                          className="max-w-[95%] max-h-[90%] object-contain transition-transform duration-500 group-hover/supporter:scale-105"
+                        />
+                      )}
+                    </div>
+                  );
+
+                  return (
+                    <div key={i} className="aspect-[3/2] bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden">
+                      {(s.url || s.link || s.link_url) ? (
+                        <a href={s.url || s.link || s.link_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                          {content}
+                        </a>
+                      ) : (
+                        content
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
         </div>
       </div>
 
