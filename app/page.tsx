@@ -112,7 +112,8 @@ export default async function Home() {
     endpoint: 'videos',
     queries: {
       limit: 50,
-      filters: 'category[contains]sponsor'
+      filters: 'category[contains]sponsor',
+      orders: '-date'
     }
   }).catch(() => ({ contents: [] }));
 

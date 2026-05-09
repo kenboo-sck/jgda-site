@@ -24,7 +24,11 @@ export default function Footer() {
       try {
         const res = await client.get({
           endpoint: 'videos',
-          queries: { limit: 50, filters: 'category[contains]sponsor' }
+          queries: { 
+            limit: 50, 
+            filters: 'category[contains]sponsor',
+            orders: '-date'
+          }
         });
         const mappedData = res.contents.map((v: any) => ({
           id: v.id,
