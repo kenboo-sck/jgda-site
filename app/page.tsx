@@ -108,18 +108,6 @@ export default async function Home() {
     queries: { orders: '-createdAt' }
   }).catch(() => ({ contents: [] }));
 
-  const videosRes = await client.get({
-    endpoint: 'videos',
-      filters: 'category[contains]sponsor'
-    }
-  }).catch(() => ({ contents: [] }));
-
-  const sponsorsData = videosRes.contents.map((v: any) => ({
-    id: v.id,
-    name: v.title || 'Official Partner',
-    logo: v.main_image || v.image || v.thumbnail,
-    url: v.url
-  }));
 
   const allVideosRes = await client.get({
     endpoint: 'videos',
