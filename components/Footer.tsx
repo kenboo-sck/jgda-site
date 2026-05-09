@@ -26,8 +26,7 @@ export default function Footer() {
           endpoint: 'videos',
           queries: { 
             limit: 50, 
-            filters: 'category[contains]sponsor',
-            orders: '-date'
+            filters: 'category[contains]sponsor'
           }
         });
         const mappedData = res.contents.map((v: any) => ({

@@ -110,10 +110,7 @@ export default async function Home() {
 
   const videosRes = await client.get({
     endpoint: 'videos',
-    queries: {
-      limit: 50,
-      filters: 'category[contains]sponsor',
-      orders: '-date'
+      filters: 'category[contains]sponsor'
     }
   }).catch(() => ({ contents: [] }));
 
