@@ -35,13 +35,15 @@ export default async function EntryListPage() {
 
   // 2. スケジュール用（今年度の大会を抽出。終了したものも含めてスケジュールに掲載する）
   const currentYear = new Date().getFullYear().toString();
+  const parseJapaneseDate = (dateStr: string) => {
+    const match = dateStr?.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+    if (!match) return new Date(0);
+    return new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
+  };
+
   const scheduleTournaments = allTournaments
     .filter((t: any) => t.date?.includes(currentYear))
-    .sort((a: any, b: any) => {
-      const db = new Date(b.date?.replace(/\./g, '/'));
-      const da = new Date(a.date?.replace(/\./g, '/'));
-      return da.getTime() - db.getTime();
-    });
+    .sort((a: any, b: any) => parseJapaneseDate(a.date).getTime() - parseJapaneseDate(b.date).getTime());
 
   const getStatusLabel = (t: any) => {
     const checkResults = (s: any) => (s?.id || s || "").toString().toLowerCase() === 'results';
