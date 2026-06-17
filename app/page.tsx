@@ -68,8 +68,13 @@ export default async function Home() {
       const is2Day = data.length > 0 && ('1r' in (data[0] as any) || '1R' in (data[0] as any));
 
       players = data
-        .filter((r: any) => r.rank !== 'PAR' && r.name)
-        .slice(0, 25)
+        .filter((r: any) => {
+          if (r.rank === 'PAR' || !r.name) return false;
+          const rankStr = (r.rank || '').toString();
+          const rankNumStr = rankStr.replace(/[^\d]/g, '');
+          if (!rankNumStr) return false;
+          return parseInt(rankNumStr, 10) <= 11;
+        })
         .map((r: any) => {
           let scoreVal = r.score || r.total || '-';
           if (scoreVal !== '-' && scoreVal !== '' && !isNaN(Number(scoreVal))) {
@@ -153,7 +158,7 @@ export default async function Home() {
     <main className="bg-white min-h-screen font-sans text-[#333] pb-32">
       <TopSlider data={sliderRes.contents} />
 
-      {/* ライブ配信バナーエリア */}
+      {/* ライブ配信バナーエリア (非表示中：次回大会で使用する場合はコメントアウトを解除)
       <section className="bg-white pt-6 pb-2">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
           <div className="relative bg-[#001f3f] rounded-sm shadow-2xl p-4 md:p-6 border-l-4 border-red-600 overflow-hidden group/container">
@@ -210,6 +215,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      */}
 
       <TournamentEntryBanner />
 
