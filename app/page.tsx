@@ -61,10 +61,18 @@ export default async function Home() {
   let players: any[] = [];
   const targetFileName = tournament?.csv_name || 'arima.csv';
 
+  // 💡 _2.csv がある場合はそれを優先して読み込む
+  let actualFileName = targetFileName;
+  const baseName = targetFileName.replace('.csv', '');
+  const p2Path = path.join(process.cwd(), 'public', 'data', `${baseName}_2.csv`);
+  if (fs.existsSync(p2Path)) {
+    actualFileName = `${baseName}_2.csv`;
+  }
+
   try {
-    const filePath = path.join(process.cwd(), 'public', 'data', targetFileName);
+    const filePath = path.join(process.cwd(), 'public', 'data', actualFileName);
     if (fs.existsSync(filePath)) {
-      const data: any[] = getCsvData(targetFileName);
+      const data: any[] = getCsvData(actualFileName);
       const is2Day = data.length > 0 && ('1r' in (data[0] as any) || '1R' in (data[0] as any));
 
       players = data
