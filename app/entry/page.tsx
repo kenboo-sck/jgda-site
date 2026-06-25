@@ -145,7 +145,7 @@ export default async function EntryListPage() {
 
                   {/* タイトルと会場 */}
                   <div className="flex-1">
-                    <h3 className={`text-base md:text-lg font-black italic tracking-tight transition-colors line-clamp-1 text-[#001f3f] ${isLinkDisabled ? '' : 'group-hover:text-red-600'}`}>
+                    <h3 className={`text-base md:text-lg font-black italic tracking-tight transition-colors text-[#001f3f] ${isLinkDisabled ? '' : 'group-hover:text-red-600'}`}>
                       {t.title}
                     </h3>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 flex items-center gap-1">
