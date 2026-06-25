@@ -152,21 +152,20 @@ export default async function PlayerPage({ params }: { params: Promise<{ id: str
 
     try {
       // 1. 2日間大会の最終結果（_2.csv）を最優先で確認
-      if (fs.existsSync(p2Path)) {
+      // 💡 _1.csv が存在する場合のみ、2日間大会（isTwoDay = true）と判定します。
+      // _1.csv がない場合は、1日開催の大会のホールバイホールデータ（または最終結果）とみなし、isTwoDay = false とします。
+      if (fs.existsSync(p2Path) && fs.existsSync(p1Path)) {
         isTwoDay = true;
         const d2 = getCsvData(`${baseName}_2.csv`);
         finalRecord = d2.find((r: any) => r.player_id === id || getMatchKey(r.name || "") === normalizedPlayerName);
 
-        // 合計計算が必要な場合に備えて1Rも取得（両パターンを確認）
-        if (fs.existsSync(p1Path)) {
-          // パターン1: brillia2024_1.csv
-          const d1 = getCsvData(`${baseName}_1.csv`);
-          r1Record = d1.find((r: any) => r.player_id === id || getMatchKey(r.name || "") === normalizedPlayerName);
-        } else if (fs.existsSync(p1PathAlt)) {
-          // パターン2: brillia2024.csv（後方互換性のため）
-          const d1 = getCsvData(`${baseName}.csv`);
-          r1Record = d1.find((r: any) => r.player_id === id || getMatchKey(r.name || "") === normalizedPlayerName);
-        }
+        // パターン1: brillia2024_1.csv
+        const d1 = getCsvData(`${baseName}_1.csv`);
+        r1Record = d1.find((r: any) => r.player_id === id || getMatchKey(r.name || "") === normalizedPlayerName);
+      } else if (fs.existsSync(p2Path)) {
+        // _2.csv はあるが _1.csv がない場合（1日開催のホールバイホール対応）
+        const d2 = getCsvData(`${baseName}_2.csv`);
+        finalRecord = d2.find((r: any) => r.player_id === id || getMatchKey(r.name || "") === normalizedPlayerName);
       } else if (fs.existsSync(p1Path)) {
         // 2. 1日開催の大会（パターン1: xxx_1.csv）
         const d1 = getCsvData(`${baseName}_1.csv`);
