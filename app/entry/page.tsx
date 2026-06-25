@@ -169,8 +169,10 @@ export default async function EntryListPage() {
                 );
               }
 
+              const linkHref = status.label === 'FINISHED' ? `/results/${t.id}` : `/entry/${t.id}`;
+
               return (
-                <Link href={`/entry/${t.id}`} key={t.id} className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-4 md:p-6 bg-white border border-slate-100 hover:border-[#001f3f] transition-all hover:shadow-md relative overflow-hidden">
+                <Link href={linkHref} key={t.id} className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-4 md:p-6 bg-white border border-slate-100 hover:border-[#001f3f] transition-all hover:shadow-md relative overflow-hidden">
                   {content}
                 </Link>
               );
