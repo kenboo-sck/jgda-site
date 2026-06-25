@@ -47,7 +47,7 @@ export default async function EntryListPage() {
 
   const getStatusLabel = (t: any) => {
     const checkResults = (s: any) => (s?.id || s || "").toString().toLowerCase() === 'results';
-    if (Array.isArray(t.status) ? t.status.some(checkResults) : checkResults(t.status)) return { label: 'FINISHED', class: 'text-slate-400 border-slate-200' };
+    if (Array.isArray(t.status) ? t.status.some(checkResults) : checkResults(t.status)) return { label: 'RESULT', class: 'text-slate-400 border-slate-200' };
     if (t.entry_active) return { label: 'ENTRY OPEN', class: 'text-red-600 border-red-600' };
     return { label: 'UPCOMING', class: 'text-[#001f3f] border-[#001f3f]' };
   };
