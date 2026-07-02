@@ -3,6 +3,17 @@ import Link from 'next/link';
 export default function TournamentEntryBanner() {
     return (
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0 w-full mb-12">
+            {/* 見出し */}
+            <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-xl md:text-2xl font-black italic uppercase tracking-tight text-[#001f3f]">
+                    Tour <span className="text-red-600">Tournament</span>
+                </h2>
+                <div className="h-[1px] flex-1 bg-slate-200"></div>
+                <span className="text-[10px] font-black text-slate-400 italic uppercase tracking-widest hidden sm:inline">
+                    Official Tour Event
+                </span>
+            </div>
+
             {/* 藤井かすみステップジャンプツアー2026 門屋組カップ バナー */}
             <div className="relative w-full overflow-hidden bg-[#001f3f] border-b-4 border-red-600 shadow-2xl group rounded-sm">
                 {/* Background with dynamic pattern */}
@@ -23,7 +34,7 @@ export default function TournamentEntryBanner() {
                     <div className="flex-1 text-center md:text-left">
                         <div className="inline-flex items-center gap-2 mb-4">
                             <span className="animate-pulse w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span>
-                            <span className="text-red-400 font-mono text-xs font-bold tracking-[0.2em] uppercase">Entry Now Open</span>
+                            <span className="text-red-400 font-mono text-xs font-bold tracking-[0.2em] uppercase">Tour Event / Entry Now Open</span>
                         </div>
 
                         <h2 className="text-white">
