@@ -9,6 +9,7 @@ import LatestVideos from '@/components/LatestVideos';
 import InstagramFeed from '@/components/InstagramFeed';
 import { getCsvData } from '@/lib/csvParser';
 import TournamentEntryBanner from '@/components/TournamentEntryBanner';
+import PreChallengeBanners from '@/components/PreChallengeBanners';
 
 import liveBanner from '@/public/images/live-bn.jpg';
 
@@ -225,6 +226,7 @@ export default async function Home() {
       </section>
       */}
 
+      <PreChallengeBanners />
       <TournamentEntryBanner />
 
       <section className="bg-white py-24">
