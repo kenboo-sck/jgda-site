@@ -18,28 +18,31 @@ export default async function EntryListPage() {
 
   const allTournaments = res.contents;
 
-  // 1. エントリー受付中の大会（結果公開済み以外で、かつステータスがupcoming以外で、エントリー設定があるもの）
-  const entryTournaments = allTournaments.filter((t: any) => {
-    const checkMatch = (s: any, target: string) => {
-      const id = (s?.id || "").toString().toLowerCase();
-      const val = (s?.value || s || "").toString().toLowerCase();
-      return id === target || val === target;
-    };
-
-    const isResults = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'results')) : checkMatch(t.status, 'results');
-    const isUpcoming = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'upcoming')) : checkMatch(t.status, 'upcoming');
-
-    // 結果公開済みでなく、かつ募集前（upcoming）でもなく、エントリー用の設定がある場合に表示
-    return !isResults && !isUpcoming && (t.entry_active || t.entry_guidelines);
-  });
-
-  // 2. スケジュール用（今年度の大会を抽出。終了したものも含めてスケジュールに掲載する）
-  const currentYear = new Date().getFullYear().toString();
   const parseJapaneseDate = (dateStr: string) => {
     const match = dateStr?.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
     if (!match) return new Date(0);
     return new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
   };
+
+  // 1. エントリー受付中の大会（結果公開済み以外で、かつステータスがupcoming以外で、エントリー設定があるもの。日程の早い順）
+  const entryTournaments = allTournaments
+    .filter((t: any) => {
+      const checkMatch = (s: any, target: string) => {
+        const id = (s?.id || "").toString().toLowerCase();
+        const val = (s?.value || s || "").toString().toLowerCase();
+        return id === target || val === target;
+      };
+
+      const isResults = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'results')) : checkMatch(t.status, 'results');
+      const isUpcoming = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'upcoming')) : checkMatch(t.status, 'upcoming');
+
+      // 結果公開済みでなく、かつ募集前（upcoming）でもなく、エントリー用の設定がある場合に表示
+      return !isResults && !isUpcoming && (t.entry_active || t.entry_guidelines);
+    })
+    .sort((a: any, b: any) => parseJapaneseDate(a.date).getTime() - parseJapaneseDate(b.date).getTime());
+
+  // 2. スケジュール用（今年度の大会を抽出。終了したものも含めてスケジュールに掲載する）
+  const currentYear = new Date().getFullYear().toString();
 
   const scheduleTournaments = allTournaments
     .filter((t: any) => t.date?.includes(currentYear))

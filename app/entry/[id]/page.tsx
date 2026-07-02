@@ -38,6 +38,9 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
     contentId: id,
   }).catch(() => null);
 
+  // 強化合宿の案内を表示するプレチャレンジシリーズ対象大会
+  const isPreChallenge = ['iejqg7vqzu', '0zd6slq5ysbh', 'dabd638nzc'].includes(id);
+
   // ステータス判定用のヘルパー（status と tournament_status の両方をチェック）
   const checkStatus = (target: string) => {
     const s = tournament?.status || tournament?.tournament_status;
@@ -229,6 +232,67 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
           )}
 
 
+
+          {/* 強化合宿のご案内セクション（プレチャレンジシリーズ対象大会のみ表示） */}
+          {isPreChallenge && (
+            <section className="relative group bg-[#001f3f] text-white p-6 md:p-10 rounded-sm border border-slate-800 shadow-xl overflow-hidden mb-20">
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 20px)' }}></div>
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-red-600 rounded-full blur-[100px] opacity-20"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-red-600 text-white flex items-center justify-center rounded-sm transform -skew-x-12 shrink-0">
+                    <svg className="w-6 h-6 transform skew-x-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col">
+                    <h3 className="text-xl md:text-2xl font-black italic tracking-tight uppercase">JGDA Training Camp</h3>
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mt-0.5">強化合宿のご案内</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6 text-sm">
+                  <div className="p-4 bg-white/5 rounded border border-white/10">
+                    <h4 className="font-bold text-red-400 text-base mb-2">
+                      JGDA強化合宿 Supported by GOLFreeWiFi
+                    </h4>
+                    <ul className="space-y-1 text-slate-300 font-medium">
+                      <li><span className="font-bold text-white">日程：</span>10月19日(月) 〜 22日(木) (4日間)</li>
+                      <li><span className="font-bold text-white">会場：</span>静ヒルズCC (茨城県)</li>
+                      <li><span className="font-bold text-white">定員：</span>24名 (定)</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h5 className="font-bold text-white mb-2 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                      参加対象条件
+                    </h5>
+                    <p className="text-xs text-slate-400 mb-3">
+                      強化合宿の参加につきましては、下記の条件全てに該当する選手が対象となります。
+                    </p>
+                    <ul className="list-disc list-inside pl-2 space-y-2 text-slate-300 text-xs md:text-sm leading-relaxed">
+                      <li>
+                        藤井かすみステップジャンプツアーPrechallengeシリーズ 
+                        <span className="text-white font-bold ml-1">葛城大会、滋賀大会、西那須野大会</span>のいずれかに出場していること
+                      </li>
+                      <li>
+                        <span className="text-white font-bold">JLPGA最終プロテスト</span>への出場が確定している選手
+                      </li>
+                      <li>
+                        強化合宿(10/19〜22)の<span className="text-white font-bold">4日間全日程</span>参加ができること
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 text-xs text-slate-400 leading-normal">
+                    <p>※尚、条件に該当する選手のうち、Prechallengeシリーズの上位者から優先的に参加可能となります。</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Entry Terms (ペアリング表示位置変更のため単独表示) */}
           {[
