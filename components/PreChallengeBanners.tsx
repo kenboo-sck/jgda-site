@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function PreChallengeBanners() {
   const tournaments = [
     {
-      title: "Pre challenge シリーズ 葛城大会",
+      title: "Pre Challenge シリーズ 葛城大会",
       subtitle: "藤井かすみステップジャンプツアー2026",
       date: "2026/8/21（金）",
       venue: "葛城ゴルフ倶楽部（静岡県）",
@@ -11,7 +11,7 @@ export default function PreChallengeBanners() {
       link: "/entry/iejqg7vqzu",
     },
     {
-      title: "Pre challenge シリーズ 滋賀大会",
+      title: "Pre Challenge シリーズ 滋賀大会",
       subtitle: "藤井かすみステップジャンプツアー2026",
       date: "2026/8/24（月）",
       venue: "滋賀カントリー倶楽部（滋賀県）",
@@ -19,7 +19,7 @@ export default function PreChallengeBanners() {
       link: "/entry/0zd6slq5ysbh",
     },
     {
-      title: "Pre challenge シリーズ 西那須野大会",
+      title: "Pre Challenge シリーズ 西那須野大会",
       subtitle: "藤井かすみステップジャンプツアー2026",
       date: "2026/9/1（火）",
       venue: "西那須野カントリークラブ（栃木県）",
