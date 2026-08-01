@@ -227,7 +227,9 @@ export default async function Home() {
       */}
 
       <PreChallengeBanners />
+      {/* Tour Tournament バナー（門屋組CUP終了に伴い一時非表示）
       <TournamentEntryBanner />
+      */}
 
       <section className="bg-white py-24">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
