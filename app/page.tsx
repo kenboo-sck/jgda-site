@@ -184,39 +184,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 左側バナー (YOUR LIVE / preBanner02) */}
-            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
-              <Link
-                href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block overflow-hidden relative"
-              >
-                <Image
-                  src={preBanner02}
-                  alt="定点カメラ LIVE映像"
-                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                />
-              </Link>
-              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
-                <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
-                  定点カメラによるLIVE映像をお届け！
-                </p>
-                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">YOUR LIVE</span>
-                  <Link
-                    href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
-                  >
-                    視聴はこちら <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 右側バナー (U-NEXT / preBanner01) */}
+            {/* 左側バナー (U-NEXT / preBanner01) */}
             <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://video.unext.jp/livedetail/LIV0000015398"
@@ -243,6 +211,38 @@ export default async function Home() {
                   <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">U-NEXT</span>
                   <Link
                     href="https://video.unext.jp/livedetail/LIV0000015398"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
+                  >
+                    視聴はこちら <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 右側バナー (YOUR LIVE / preBanner02) */}
+            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
+              <Link
+                href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block overflow-hidden relative"
+              >
+                <Image
+                  src={preBanner02}
+                  alt="定点カメラ LIVE映像"
+                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                />
+              </Link>
+              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
+                <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
+                  定点カメラによるLIVE映像をお届け！
+                </p>
+                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">YOUR LIVE</span>
+                  <Link
+                    href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
