@@ -170,36 +170,88 @@ export default async function Home() {
       <TopSlider data={sliderRes.contents} />
 
       {/* ライブ配信・動画配信バナーエリア (左右2カラム) */}
-      <section className="bg-white pt-8 pb-4">
+      <section className="bg-white pt-8 pb-6">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 左側バナー */}
-            <Link
-              href="https://video.unext.jp/livedetail/LIV0000015398"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block overflow-hidden rounded shadow-xl hover:shadow-[0_0_25px_rgba(239,68,68,0.3)] transition-all duration-300 border border-slate-200 hover:border-red-600 bg-slate-900"
-            >
-              <Image
-                src={preBanner01}
-                alt="Live Streaming 01"
-                className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-              />
-            </Link>
+          {/* セクションタイトル */}
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="text-lg md:text-xl font-black italic tracking-tight text-[#001f3f] leading-snug">
+              藤井かすみステップジャンプツアー2026 <span className="text-red-600">Pre Challenge シリーズ 葛城大会 LIVE配信</span>
+            </h2>
+            <div className="h-[1px] flex-1 bg-slate-200"></div>
+            <span className="text-[10px] font-black text-slate-400 italic uppercase tracking-widest hidden sm:inline">
+              LIVE STREAMING
+            </span>
+          </div>
 
-            {/* 右側バナー */}
-            <Link
-              href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block overflow-hidden rounded shadow-xl hover:shadow-[0_0_25px_rgba(239,68,68,0.3)] transition-all duration-300 border border-slate-200 hover:border-red-600 bg-slate-900"
-            >
-              <Image
-                src={preBanner02}
-                alt="Live Streaming 02"
-                className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-              />
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 左側バナー (YOUR LIVE / preBanner02) */}
+            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
+              <Link
+                href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block overflow-hidden relative"
+              >
+                <Image
+                  src={preBanner02}
+                  alt="定点カメラ LIVE映像"
+                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                />
+              </Link>
+              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
+                <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
+                  定点カメラによるLIVE映像をお届け！
+                </p>
+                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">YOUR LIVE</span>
+                  <Link
+                    href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
+                  >
+                    視聴はこちら <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 右側バナー (U-NEXT / preBanner01) */}
+            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
+              <Link
+                href="https://video.unext.jp/livedetail/LIV0000015398"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block overflow-hidden relative"
+              >
+                <Image
+                  src={preBanner01}
+                  alt="U-NEXT 独占密着"
+                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                />
+              </Link>
+              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="inline-block bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm mb-2">
+                    U-NEXT 8月21日(金) 8:45配信開始
+                  </div>
+                  <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
+                    注目の“黄金カード”を独占密着！未来のヒロインたちが名門・葛城で激突！
+                  </p>
+                </div>
+                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">U-NEXT</span>
+                  <Link
+                    href="https://video.unext.jp/livedetail/LIV0000015398"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
+                  >
+                    視聴はこちら <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
