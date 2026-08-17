@@ -184,7 +184,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 左側バナー (U-NEXT / preBanner01) */}
+            {/* 左側バナー (U-NEXT / preBanner02) */}
             <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://video.unext.jp/livedetail/LIV0000015398"
@@ -193,7 +193,7 @@ export default async function Home() {
                 className="block overflow-hidden relative"
               >
                 <Image
-                  src={preBanner01}
+                  src={preBanner02}
                   alt="U-NEXT 独占密着"
                   className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                 />
@@ -221,7 +221,7 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* 右側バナー (YOUR LIVE / preBanner02) */}
+            {/* 右側バナー (YOUR LIVE / preBanner01) */}
             <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
@@ -230,7 +230,7 @@ export default async function Home() {
                 className="block overflow-hidden relative"
               >
                 <Image
-                  src={preBanner02}
+                  src={preBanner01}
                   alt="定点カメラ LIVE映像"
                   className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                 />
