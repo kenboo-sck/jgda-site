@@ -256,7 +256,9 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Pre Challenge シリーズ3大会カード（一時非表示。復活時は下のコメントを外す）
       <PreChallengeBanners />
+      */}
       {/* Tour Tournament バナー（門屋組CUP終了に伴い一時非表示）
       <TournamentEntryBanner />
       */}
