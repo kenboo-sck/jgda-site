@@ -182,19 +182,19 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div>
             {/* U-NEXT見逃し配信バナー (preBanner02) */}
             <div className="flex flex-col md:flex-row bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://video.unext.jp/livedetail/LIV0000015398"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block md:w-1/2 overflow-hidden relative"
+                className="flex items-center justify-center md:w-1/2 overflow-hidden relative bg-slate-900"
               >
                 <Image
                   src={preBanner02}
                   alt="U-NEXT 独占密着"
-                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                  className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                 />
               </Link>
               <div className="p-5 md:p-6 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
