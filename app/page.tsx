@@ -12,7 +12,6 @@ import TournamentEntryBanner from '@/components/TournamentEntryBanner';
 import PreChallengeBanners from '@/components/PreChallengeBanners';
 
 import liveBanner from '@/public/images/live-bn.jpg';
-import preBanner01 from '@/public/images/2026-pre-01.jpg';
 import preBanner02 from '@/public/images/2026-pre-02.jpg';
 
 export const revalidate = 3600;
@@ -183,66 +182,46 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 左側バナー (U-NEXT / preBanner02) */}
-            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
+          <div className="max-w-4xl mx-auto">
+            {/* U-NEXT見逃し配信バナー (preBanner02) */}
+            <div className="flex flex-col md:flex-row bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://video.unext.jp/livedetail/LIV0000015398"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block overflow-hidden relative"
+                className="block md:w-1/2 overflow-hidden relative"
               >
                 <Image
                   src={preBanner02}
                   alt="U-NEXT 独占密着"
-                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
+                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
                 />
               </Link>
-              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
+              <div className="p-5 md:p-6 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="inline-block bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm mb-2">
-                    U-NEXT 8月21日(金) 8:45配信開始
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="inline-block bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm">
+                      U-NEXT 8月21日(金) 8:45配信開始
+                    </span>
+                    <span className="inline-block bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm">
+                      見逃し配信中
+                    </span>
                   </div>
+                  <h3 className="text-sm md:text-base font-black mb-2 leading-snug">
+                    藤井かすみステップジャンプツアー2026 葛城大会
+                  </h3>
                   <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
                     注目の“黄金カード”を独占密着！未来のヒロインたちが名門・葛城で激突！
                   </p>
+                  <div className="mt-3 text-[11px] text-slate-300 leading-relaxed">
+                    <span className="text-slate-400">見逃し配信期間</span><br />
+                    8月21日 16:57〜9月4日 23:59
+                  </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
                   <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">U-NEXT</span>
                   <Link
                     href="https://video.unext.jp/livedetail/LIV0000015398"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
-                  >
-                    視聴はこちら <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 右側バナー (YOUR LIVE / preBanner01) */}
-            <div className="flex flex-col bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
-              <Link
-                href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block overflow-hidden relative"
-              >
-                <Image
-                  src={preBanner01}
-                  alt="定点カメラ LIVE映像"
-                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-                />
-              </Link>
-              <div className="p-4 bg-[#001f3f] text-white flex-1 flex flex-col justify-between">
-                <p className="text-xs md:text-sm font-bold leading-relaxed text-slate-200">
-                  定点カメラによるLIVE映像をお届け！
-                </p>
-                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-red-400 font-bold tracking-widest uppercase">YOUR LIVE</span>
-                  <Link
-                    href="https://player.yourlive.jvckenwood.com/jgda/20260821_jgda.html"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-bold text-white hover:text-red-400 inline-flex items-center gap-1 transition-colors"
