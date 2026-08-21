@@ -24,20 +24,21 @@ export default async function EntryListPage() {
     return new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
   };
 
+  // ステータス判定ヘルパー（セレクト項目の「ID」と「値」の両方をチェック）
+  const hasStatus = (t: any, target: string) => {
+    const checkMatch = (s: any) => {
+      const id = (s?.id || "").toString().toLowerCase();
+      const val = (s?.value || s || "").toString().toLowerCase();
+      return id === target || val === target;
+    };
+    return Array.isArray(t.status) ? t.status.some(checkMatch) : checkMatch(t.status);
+  };
+
   // 1. エントリー受付中の大会（結果公開済み以外で、かつステータスがupcoming以外で、エントリー設定があるもの。日程の早い順）
   const entryTournaments = allTournaments
     .filter((t: any) => {
-      const checkMatch = (s: any, target: string) => {
-        const id = (s?.id || "").toString().toLowerCase();
-        const val = (s?.value || s || "").toString().toLowerCase();
-        return id === target || val === target;
-      };
-
-      const isResults = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'results')) : checkMatch(t.status, 'results');
-      const isUpcoming = Array.isArray(t.status) ? t.status.some((s: any) => checkMatch(s, 'upcoming')) : checkMatch(t.status, 'upcoming');
-
       // 結果公開済みでなく、かつ募集前（upcoming）でもなく、エントリー用の設定がある場合に表示
-      return !isResults && !isUpcoming && (t.entry_active || t.entry_guidelines);
+      return !hasStatus(t, 'results') && !hasStatus(t, 'upcoming') && (t.entry_active || t.entry_guidelines);
     })
     .sort((a: any, b: any) => parseJapaneseDate(a.date).getTime() - parseJapaneseDate(b.date).getTime());
 
@@ -49,8 +50,13 @@ export default async function EntryListPage() {
     .sort((a: any, b: any) => parseJapaneseDate(a.date).getTime() - parseJapaneseDate(b.date).getTime());
 
   const getStatusLabel = (t: any) => {
-    const checkResults = (s: any) => (s?.id || s || "").toString().toLowerCase() === 'results';
-    if (Array.isArray(t.status) ? t.status.some(checkResults) : checkResults(t.status)) return { label: 'RESULT', class: 'text-slate-400 border-slate-200' };
+    if (hasStatus(t, 'results')) return { label: 'RESULT', class: 'text-slate-400 border-slate-200' };
+    // status が entry の場合は補助フィールド entryState（"open" | "closed"）で受付中／受付終了を判定
+    // 未設定の場合は従来どおり受付中として扱う
+    if (hasStatus(t, 'entry')) {
+      if (t.entryState === 'closed') return { label: 'ENTRY CLOSED', class: 'text-slate-500 border-slate-400' };
+      return { label: 'ENTRY OPEN', class: 'text-red-600 border-red-600' };
+    }
     if (t.entry_active) return { label: 'ENTRY OPEN', class: 'text-red-600 border-red-600' };
     return { label: 'UPCOMING', class: 'text-[#001f3f] border-[#001f3f]' };
   };
@@ -87,8 +93,8 @@ export default async function EntryListPage() {
                     <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic">NO IMAGE</div>
                   )}
                   <div className="absolute top-4 left-4">
-                    <span className={`text-[10px] font-black px-3 py-1 tracking-widest uppercase italic rounded-sm shadow-lg ${t.entry_active ? 'bg-red-600 text-white' : 'bg-slate-800 text-white/50'}`}>
-                      {t.entry_active ? 'Accepting' : 'Closed'}
+                    <span className={`text-[10px] font-black px-3 py-1 tracking-widest uppercase italic rounded-sm shadow-lg ${t.entry_active && t.entryState !== 'closed' ? 'bg-red-600 text-white' : 'bg-slate-800 text-white/50'}`}>
+                      {t.entry_active && t.entryState !== 'closed' ? 'Accepting' : 'Closed'}
                     </span>
                   </div>
                 </div>
