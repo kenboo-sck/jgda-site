@@ -51,7 +51,10 @@ export default async function EntryDetailPage({ params }: { params: Promise<{ id
 
   const isResults = checkStatus('results');
   // 補助フィールド entryState が "closed" の場合は受付終了扱い（未設定なら従来どおり）
-  const isEntry = tournament?.entryState !== 'closed' && (tournament?.entry_active || checkStatus('entry'));
+  // セレクト項目のため文字列 or 配列のどちらの形式にも対応
+  const entryStateRaw = tournament?.entryState;
+  const entryState = (Array.isArray(entryStateRaw) ? entryStateRaw[0] : entryStateRaw)?.toString().toLowerCase();
+  const isEntry = entryState !== 'closed' && (tournament?.entry_active || checkStatus('entry'));
 
   // ステータスが 'results'（結果公開中）の場合でも、エントリーページを表示（アーカイブとして閲覧可能）
   // 募集情報が全くない場合は404にする

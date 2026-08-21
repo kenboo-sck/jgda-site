@@ -34,6 +34,13 @@ export default async function EntryListPage() {
     return Array.isArray(t.status) ? t.status.some(checkMatch) : checkMatch(t.status);
   };
 
+  // entryState は microCMS のセレクト項目のため、文字列 or 配列のどちらの形式でも取得できるように正規化
+  const getEntryState = (t: any) => {
+    const s = t?.entryState;
+    const val = Array.isArray(s) ? s[0] : s;
+    return val?.toString().toLowerCase();
+  };
+
   // 1. エントリー受付中の大会（結果公開済み以外で、かつステータスがupcoming以外で、エントリー設定があるもの。日程の早い順）
   const entryTournaments = allTournaments
     .filter((t: any) => {
@@ -54,7 +61,7 @@ export default async function EntryListPage() {
     // status が entry の場合は補助フィールド entryState（"open" | "closed"）で受付中／受付終了を判定
     // 未設定の場合は従来どおり受付中として扱う
     if (hasStatus(t, 'entry')) {
-      if (t.entryState === 'closed') return { label: 'ENTRY CLOSED', class: 'text-slate-500 border-slate-400' };
+      if (getEntryState(t) === 'closed') return { label: 'ENTRY CLOSED', class: 'text-slate-500 border-slate-400' };
       return { label: 'ENTRY OPEN', class: 'text-red-600 border-red-600' };
     }
     if (t.entry_active) return { label: 'ENTRY OPEN', class: 'text-red-600 border-red-600' };
@@ -93,8 +100,8 @@ export default async function EntryListPage() {
                     <div className="w-full h-full flex items-center justify-center text-slate-300 font-bold italic">NO IMAGE</div>
                   )}
                   <div className="absolute top-4 left-4">
-                    <span className={`text-[10px] font-black px-3 py-1 tracking-widest uppercase italic rounded-sm shadow-lg ${t.entry_active && t.entryState !== 'closed' ? 'bg-red-600 text-white' : 'bg-slate-800 text-white/50'}`}>
-                      {t.entry_active && t.entryState !== 'closed' ? 'Accepting' : 'Closed'}
+                    <span className={`text-[10px] font-black px-3 py-1 tracking-widest uppercase italic rounded-sm shadow-lg ${t.entry_active && getEntryState(t) !== 'closed' ? 'bg-red-600 text-white' : 'bg-slate-800 text-white/50'}`}>
+                      {t.entry_active && getEntryState(t) !== 'closed' ? 'Accepting' : 'Closed'}
                     </span>
                   </div>
                 </div>
