@@ -289,7 +289,7 @@ export default async function Home() {
                   src={tournament.image.url} 
                   alt="Tournament Visual" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover object-[center_25%]" 
                   sizes="100vw"
                 />
               </div>
