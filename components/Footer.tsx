@@ -38,6 +38,7 @@ export default function Footer() {
         setSponsors(mappedData);
       } catch (error) {
         console.error('Failed to fetch sponsors:', error);
+        setSponsors([]);
       }
     };
 

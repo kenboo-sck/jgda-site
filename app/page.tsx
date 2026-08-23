@@ -272,6 +272,7 @@ export default async function Home() {
                   fill 
                   className="object-cover object-[center_25%]" 
                   sizes="100vw"
+                  onError={(e) => { e.currentTarget.src = '/images/placeholder.jpg'; }}
                 />
               </div>
             )}
@@ -341,7 +342,7 @@ export default async function Home() {
                             alt={p.name} 
                             fill 
                             className="object-cover" 
-                            sizes="40px"
+                            onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
                           />
                         </div>
                       ) : (
@@ -398,15 +399,16 @@ export default async function Home() {
                       <td className="py-5 px-6 text-[14px] font-bold text-[#001f3f] tracking-tight italic select-none leading-tight">
                         <div className="flex items-center gap-3">
                           {/* 💡 修正箇所3：PC版の選手アイコン画像 */}
-                          {p.imageUrl ? (
-                            <Image 
-                              src={p.imageUrl} 
-                              alt={p.name} 
-                              width={32} 
-                              height={32} 
-                              className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" 
-                            />
-                          ) : (
+{p.imageUrl ? (
+                              <Image 
+                                src={p.imageUrl} 
+                                alt={p.name} 
+                                width={32} 
+                                height={32} 
+                                className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" 
+                                onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
+                              />
+                            ) : (
                             <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
                               <svg className="w-4 h-4 text-slate-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
                             </div>
@@ -471,6 +473,7 @@ export default async function Home() {
                       alt={news.title} 
                       fill 
                       className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                      onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   )}
