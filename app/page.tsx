@@ -272,7 +272,6 @@ export default async function Home() {
                   fill 
                   className="object-cover object-[center_25%]" 
                   sizes="100vw"
-                  onError={(e) => { e.currentTarget.src = '/images/placeholder.jpg'; }}
                 />
               </div>
             )}
@@ -341,8 +340,7 @@ export default async function Home() {
                             src={p.imageUrl} 
                             alt={p.name} 
                             fill 
-                            className="object-cover" 
-                            onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
+                            className="object-cover"
                           />
                         </div>
                       ) : (
@@ -405,8 +403,7 @@ export default async function Home() {
                                 alt={p.name} 
                                 width={32} 
                                 height={32} 
-                                className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50" 
-                                onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
+                                className="w-8 h-8 rounded-full object-cover border border-slate-200 flex-shrink-0 bg-slate-50"
                               />
                             ) : (
                             <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 flex-shrink-0 flex items-center justify-center">
@@ -473,7 +470,6 @@ export default async function Home() {
                       alt={news.title} 
                       fill 
                       className="object-cover transition-transform duration-500 group-hover:scale-105" 
-                      onError={(e) => { e.currentTarget.src = '/images/placeholder-small.jpg'; }}
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   )}
