@@ -233,11 +233,22 @@ export default function ResultDisplay({ info, parRow: originalParRow, playerResu
 
         {/* --- 大会メモ（microCMS の note 欄。プレーオフ決着・優勝者などを記載） --- */}
         {info?.note && (
-          <div className="mb-12 border-l-4 border-red-600 bg-slate-50 px-5 py-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 italic mb-1">Note</p>
-            <p className="text-sm md:text-base font-bold text-[#003366] whitespace-pre-line leading-relaxed">
-              {renderSafe(info.note)}
-            </p>
+          <div className="mb-12 relative overflow-hidden bg-[#003366] text-white shadow-xl">
+            <div className="absolute top-0 left-0 w-1.5 h-full bg-red-600"></div>
+            <div className="absolute -right-8 -bottom-8 text-white/5">
+              <svg className="w-40 h-40 fill-current" viewBox="0 0 24 24">
+                <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
+              </svg>
+            </div>
+            <div className="relative px-6 py-6 md:px-8 md:py-7">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="bg-red-600 text-white text-[10px] font-black px-3 py-1 tracking-[0.3em] uppercase italic">Tournament Note</span>
+                <div className="h-[1px] flex-1 bg-white/20"></div>
+              </div>
+              <p className="text-base md:text-lg font-bold whitespace-pre-line leading-relaxed tracking-wide">
+                {renderSafe(info.note)}
+              </p>
+            </div>
           </div>
         )}
 
