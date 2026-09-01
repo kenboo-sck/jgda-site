@@ -231,6 +231,16 @@ export default function ResultDisplay({ info, parRow: originalParRow, playerResu
           </div>
         )}
 
+        {/* --- 大会メモ（microCMS の note 欄。プレーオフ決着・優勝者などを記載） --- */}
+        {info?.note && (
+          <div className="mb-12 border-l-4 border-red-600 bg-slate-50 px-5 py-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 italic mb-1">Note</p>
+            <p className="text-sm md:text-base font-bold text-[#003366] whitespace-pre-line leading-relaxed">
+              {renderSafe(info.note)}
+            </p>
+          </div>
+        )}
+
         {/* --- FINAL RESULT --- */}
         <section className="mb-20">
           {players.length > 0 ? (
