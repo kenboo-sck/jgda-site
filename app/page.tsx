@@ -168,10 +168,9 @@ export default async function Home() {
     <main className="bg-white min-h-screen font-sans text-[#333] pb-32">
       <TopSlider data={sliderRes.contents} />
 
-      {/* ライブ配信・動画配信バナーエリア (左右2カラム) */}
+      {/* ライブ配信・動画配信バナーエリア（一時非表示。再利用時はコメント解除）
       <section className="bg-white pt-8 pb-6">
         <div className="max-w-[1200px] mx-auto px-4 xl:px-0">
-          {/* セクションタイトル */}
           <div className="flex items-center gap-4 mb-6">
             <h2 className="text-lg md:text-xl font-black italic tracking-tight text-[#001f3f] leading-snug">
               藤井かすみステップジャンプツアー2026 <span className="text-red-600">Pre Challenge シリーズ 葛城大会 LIVE配信</span>
@@ -183,7 +182,6 @@ export default async function Home() {
           </div>
 
           <div>
-            {/* U-NEXT見逃し配信バナー (preBanner02) */}
             <div className="flex flex-col md:flex-row bg-slate-900 border border-slate-200 hover:border-red-600 rounded shadow-xl overflow-hidden transition-all duration-300 group">
               <Link
                 href="https://video.unext.jp/livedetail/LIV0000015398"
@@ -234,6 +232,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Pre Challenge シリーズ3大会カード（一時非表示。復活時は下のコメントを外す）
       <PreChallengeBanners />
